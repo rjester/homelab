@@ -1,0 +1,18 @@
+
+services:
+    henrywhitaker3:
+        image: 'ghcr.io/henrywhitaker3/adguard-exporter:latest'
+        ports:
+            - '9618:9618'
+        environment:
+            - 'ADGUARD_PASSWORDS=$PASSWORD1,$PASSWORD2'
+            - 'ADGUARD_USERNAMES=$USERNAME1,$USERNAME2'
+            - 'ADGUARD_SERVERS=http://192.168.0.74,http://192.168.0.211'
+            #- 'ADGUARD_PASSWORDS=$PASSWORD1'
+            #- 'ADGUARD_USERNAMES=$USERNAME1'
+            #- 'ADGUARD_SERVERS=http://192.168.0.74'
+        #labels:
+          #- traefik.enable=true
+          #- traefik.http.routers.adguard-exporter.rule=Host(`adguard-exporter.rjester.us`)
+          #- traefik.http.routers.adguard-exporter.entrypoints=https
+          #- traefik.http.routers.adguard-exporter.tls=true

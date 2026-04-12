@@ -3,32 +3,31 @@ stages:
   - test
   - deploy
 
-variables:
-  DOTNET_VERSION: "10.0"
+# variables:
+#   DOTNET_VERSION: "10.0"
 
-build:
-  stage: build
-  image: mcr.microsoft.com/dotnet/sdk:$DOTNET_VERSION
-  script:
-    - dotnet restore
-    - dotnet build --no-restore
+# build:
+#   stage: build
+#   image: mcr.microsoft.com/dotnet/sdk:$DOTNET_VERSION
+#   script:
+#     - dotnet restore
+#     - dotnet build --no-restore
 
-test:
-  stage: test
-  image: mcr.microsoft.com/dotnet/sdk:$DOTNET_VERSION
-  script:
-    - dotnet test --no-build --verbosity normal
+# test:
+#   stage: test
+#   image: mcr.microsoft.com/dotnet/sdk:$DOTNET_VERSION
+#   script:
+#     - dotnet test --no-build --verbosity normal
 
-deploy:
-  stage: deploy
-  script:
-    - echo "Deploy step here"
-  only:
-    - main
+# deploy:
+#   stage: deploy
+#   script:
+#     - echo "Deploy step here"
+#   only:
+#     - main
 
-mirror:
-  stage: deploy
-  script:
-    - echo "Mirror handled automatically by GitLab"
+# mirror:
+#   stage: deploy
+#   script:
+#     - echo "Mirror handled automatically by GitLab"
 
-# test    

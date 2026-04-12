@@ -1,0 +1,25 @@
+services:
+  barcodebuddy:
+    image: f0rc3/barcodebuddy:latest # Or specify a specific version like :1.8.1.7
+    container_name: barcodebuddy
+    ports:
+      - "8098:80" # Map host port 80 to container port 80 (adjust as needed)
+    environment:
+      # Configure Grocy API details
+      - BBUDDY_GROCY_API_URL=https://grocy.local.russjester.com/api/ # Replace with your Grocy API URL
+      - BBUDDY_GROCY_API_KEY=RxpZzGFRoMnqiCH3bURXKPFeSMvu7awNfdNcwUkTvz29I40zdL # Replace with your Grocy API key
+      # Optional: Disable authentication for easier setup (not recommended for production)
+      # - BBUDDY_DISABLE_AUTHENTICATION=true
+      # Optional: Configure Redis for caching (if you have a Redis service)
+      # - BBUDDY_REDIS_ENABLED=true
+      # - BBUDDY_REDIS_HOST=redis
+      # - BBUDDY_REDIS_PORT=6379
+    volumes:
+      - /docker/barcodebuddy/data/barcodebuddy:/var/www/html/barcodebuddy/data # Persist data (e.g., database)
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.barcodebuddy.rule=Host(`barcodebuddy.rjester.us`)
+      - traefik.http.routers.barcodebuddy.entrypoints=https
+      - traefik.http.routers.barcodebuddy.tls=true
+      - traefik.http.services.barcodebuddy.loadbalancer.server.port=8099

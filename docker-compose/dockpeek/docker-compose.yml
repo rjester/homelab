@@ -1,0 +1,24 @@
+networks:
+  proxy:
+    external: true
+
+services:
+  dockpeek:
+    image: ghcr.io/dockpeek/dockpeek:latest
+    container_name: dockpeek
+    environment:
+      - SECRET_KEY=${SECRET_KEY}    # Required: Set a secure secret key
+      - USERNAME=${USER}                       # username
+      - PASSWORD=${PASSWORD}             # password
+    ports:
+      - "3420:8000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
+    labels:
+     - traefik.enable=true
+     - traefik.http.routers.dockpeek.rule=Host(`dockpeek.rjester.us`)
+     - traefik.http.routers.dockpeek.entrypoints=https
+     - traefik.http.routers.dockpeek.tls=true
+    networks:
+      - proxy

@@ -1,0 +1,41 @@
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Docker Compose overrides
+docker-compose.override.yml
+docker-compose.*.yml
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+
+# OS files
+.DS_Store
+Thumbs.db
+.directory
+
+# Logs
+*.log
+logs/
+
+# Dependencies
+node_modules/
+venv/
+__pycache__/
+*.pyc
+
+# Temporary files
+*.tmp
+*.bak
+.temp/
+
+# Docker
+.dockerignore
+docker-compose.dev.yml

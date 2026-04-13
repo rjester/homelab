@@ -1,0 +1,13 @@
+services:
+  it-tools:
+    container_name: it-tools
+    restart: unless-stopped
+    ports:
+      - '8088:80'
+    image: 'corentinth/it-tools:latest'
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.it-tools.rule=Host(`it-tools.rjester.us`)
+      - traefik.http.routers.it-tools.entrypoints=https
+      - traefik.http.routers.it-tools.tls=true
+      - traefik.http.services.it-tools.loadbalancer.server.port=8088

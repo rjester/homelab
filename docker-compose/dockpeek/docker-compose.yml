@@ -4,7 +4,7 @@ networks:
 
 services:
   dockpeek:
-    image: ghcr.io/dockpeek/dockpeek:latest
+    image: ghcr.io/dockpeek/dockpeek:v1.7.2
     container_name: dockpeek
     environment:
       - SECRET_KEY=${SECRET_KEY}    # Required: Set a secure secret key

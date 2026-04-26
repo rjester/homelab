@@ -84,8 +84,6 @@ services:
     image: lscr.io/linuxserver/sonarr:latest
     container_name: sonarr1
     network_mode: "service:gluetun"
-    networks:
-      - proxy
     environment:
       - PUID=1000
       - PGID=1000
@@ -110,8 +108,6 @@ services:
 #     image: lscr.io/linuxserver/prowlarr:latest
 #     container_name: prowlarr
 #     network_mode: "service:gluetun"
-#     networks:
-#       - proxy
 #     environment:
 #       - PUID=1000
 #       - PGID=1000
@@ -147,8 +143,6 @@ services:
 #     image: lscr.io/linuxserver/qbittorrent:latest
 #     container_name: qbittorrent
 #     network_mode: "service:gluetun"
-#     networks:
-#       - proxy
 #     environment:
 #       - PUID=1000
 #       - PGID=1000
@@ -169,8 +163,6 @@ services:
 #     image: ghcr.io/flaresolverr/flaresolverr:latest
 #     container_name: flaresolverr
 #     network_mode: "service:gluetun"
-#     networks:
-#       - proxy
 #     environment:
 #       - LOG_LEVEL=info
 #       - LOG_HTML=false

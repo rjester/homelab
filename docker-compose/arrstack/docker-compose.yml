@@ -1,0 +1,198 @@
+services:
+
+############################
+# GLUETUN
+############################
+
+  gluetun:
+    image: qmcgaw/gluetun:latest
+    container_name: gluetun1
+    ports:
+      - 9696:9696 #prowlarr
+      - 7878:7878 #radarr
+      - 8989:8989 #sonarr
+      - 6767:6767 #bazarr
+      #- 8686:8686 #lidarr
+      - 8080:8080 #qbittorrent
+      - 6881:6881 #qbittorrent
+      - 6881:6881/udp #qbittorrent
+      - 8191:8191 #flaresolverr
+    networks:
+      - proxy
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    environment:
+      - VPN_SERVICE_PROVIDER=protonvpn
+      - VPN_TYPE=wireguard
+      - WIREGUARD_PRIVATE_KEY=qNQQLYMpU67R9pZfxWMbIARrDZn+PUOku0/qaam/I0Q=
+      - SERVER_COUNTRIES=Netherlands
+    restart: unless-stopped
+
+# ############################
+# # RADARR
+# ############################
+
+#   radarr:
+#     image: lscr.io/linuxserver/radarr:latest
+#     container_name: radarr1
+#     network_mode: "service:gluetun"
+#     environment:
+#       - PUID=1000
+#       - PGID=1000
+#       - TZ=America/New_York
+#     networks:
+#       - proxy
+#     volumes:
+#       - /etc/localtime:/etc/localtime:ro
+#       - /arr/data/configs/radarr:/config
+#       - /arr/data/media:/media
+#       - /arr/data/media/downloads:/downloads
+#     restart: unless-stopped    
+
+# ############################
+# # SONARR
+# ############################
+
+#   sonarr:
+#     image: lscr.io/linuxserver/sonarr:latest
+#     container_name: sonarr1
+#     network_mode: "service:gluetun"
+#     networks:
+#       - proxy
+#     environment:
+#       - PUID=1000
+#       - PGID=1000
+#       - TZ=America/New_York
+#     volumes:
+#       - /etc/localtime:/etc/localtime:ro
+#       - /arr/data/configs/sonarr:/config
+#       - /arr/data/media:/media
+#     restart: unless-stopped
+
+# ############################
+# # PROWLARR
+# ############################
+
+#   prowlarr:
+#     image: lscr.io/linuxserver/prowlarr:latest
+#     container_name: prowlarr
+#     network_mode: "service:gluetun"
+#     networks:
+#       - proxy
+#     environment:
+#       - PUID=1000
+#       - PGID=1000
+#       - TZ=America/New_York
+#     volumes:
+#       - /arr/data/configs/prowlarr:/config
+#       - /arr/data/media:/media
+#     restart: unless-stopped
+
+# ############################
+# # BAZARR
+# ############################
+
+#   bazarr:
+#     image: lscr.io/linuxserver/bazarr:latest
+#     container_name: bazarr
+#     network_mode: "service:gluetun"
+#     environment:
+#       - PUID=1000
+#       - PGID=1000
+#       - TZ=America/New_York
+#     volumes:
+#       - /etc/localtime:/etc/localtime:ro
+#       - /arr/data/configs/bazarr:/config
+#       - /arr/data/media:/media
+#     restart: unless-stopped
+
+# ############################
+# # QBITTORRENT		
+# ############################
+
+#   qbittorrent:
+#     image: lscr.io/linuxserver/qbittorrent:latest
+#     container_name: qbittorrent
+#     network_mode: "service:gluetun"
+#     networks:
+#       - proxy
+#     environment:
+#       - PUID=1000
+#       - PGID=1000
+#       - TZ=America/New_York
+#       - WEBUI_PORT=8080
+#       - TORRENTING_PORT=6881
+#     volumes:
+#       - /etc/localtime:/etc/localtime:ro
+#       - /arr/data/configs/qbittorrent:/config
+#       - /arr/data/media:/media
+#     restart: unless-stopped    
+
+# ############################
+# # FLARESOLVERR
+# ############################
+
+#   flaresolverr:
+#     image: ghcr.io/flaresolverr/flaresolverr:latest
+#     container_name: flaresolverr
+#     network_mode: "service:gluetun"
+#     networks:
+#       - proxy
+#     environment:
+#       - LOG_LEVEL=info
+#       - LOG_HTML=false
+#       - CAPTCHA_SOLVER=none
+#       - TZ=America/New_York
+#     restart:  unless-stopped    
+
+# # ############################
+# # # JELLYFIN
+# # ############################
+
+# #   jellyfin:
+# #     container_name: jellyfin1
+# #     image: lscr.io/linuxserver/jellyfin:latest
+# #     environment:
+# #       - PUID=1000
+# #       - PGID=1000
+# #       - TZ=America/New_York
+# #     ports:
+# #       - '8099:8096'
+# #      networks:
+# #        - proxy
+# #     restart: unless-stopped
+# #     volumes:
+# #       - /arr/data/configs/jellyfin:/config
+# #       - /arr/data/media:/media
+
+# ############################
+# # SEERR
+# ############################
+
+#   seerr:
+#     image: ghcr.io/seerr-team/seerr:latest
+#     init: true
+#     container_name: seerr
+#     environment:
+#       - LOG_LEVEL=debug
+#       - TZ=America/New_York
+#       - PORT=5055
+#     ports:
+#       - 5055:5055
+#     networks:
+#       - proxy
+#     volumes:
+#       - /arr/data/configs/seerr:/app/config
+#     healthcheck:
+#       test: wget --no-verbose --tries=1 --spider http://localhost:5055/api/v1/status || exit 1
+#       start_period: 20s
+#       timeout: 3s
+#       interval: 15s
+#       retries: 3
+#     restart: unless-stopped
+
+networks:
+  proxy:
+    external: true

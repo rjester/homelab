@@ -42,6 +42,8 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=America/New_York
+    depends_on:
+      - gluetun
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /arr/data/configs/radarr:/config

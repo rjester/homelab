@@ -183,25 +183,43 @@ services:
      - traefik.http.services.bazarr.loadbalancer.server.port=6767
      - traefik.docker.network=proxy
 
-# ############################
-# # QBITTORRENT		
-# ############################
+############################
+# QBITTORRENT		
+############################
 
-#   qbittorrent:
-#     image: lscr.io/linuxserver/qbittorrent:latest
-#     container_name: qbittorrent1
-#     network_mode: "service:gluetun"
-#     environment:
-#       - PUID=1000
-#       - PGID=1000
-#       - TZ=America/New_York
-#       - WEBUI_PORT=8080
-#       - TORRENTING_PORT=6881
-#     volumes:
-#       - /etc/localtime:/etc/localtime:ro
-#       - /arr/data/configs/qbittorrent:/config
-#       - /arr/data/media:/media
-#     restart: unless-stopped    
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent1
+    network_mode: "service:gluetun"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+      - WEBUI_PORT=8080
+      - TORRENTING_PORT=6881
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /arr/data/configs/qbittorrent:/config
+      - /arr/data/media:/media
+    restart: unless-stopped    
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://127.0.0.1:8080 && curl -f http://127.0.0.1:8080/api/v2/app/version"]
+      interval: 30s
+      timeout: 15s
+      retries: 4
+      start_period: 120s
+    labels:
+     - homepage.group=ArrStack
+     - homepage.name=Qbittorrent
+     - homepage.icon=qbittorrent.png
+     - homepage.href=https://qbittorrent.rjester.us/
+     - homepage.description=Qbittorrent is a torrent client for Usenet and BitTorrent users. It can monitor multiple RSS feeds for new content and will automatically add them to your collection, even when they are released. It also has support for automatically downloading, sorting, and renaming files.
+     - traefik.enable=true
+     - traefik.http.routers.qbittorrent.rule=Host(`qbit.rjester.us`)
+     - traefik.http.routers.qbittorrent.entrypoints=https
+     - traefik.http.routers.qbittorrent.tls=true
+     - traefik.http.services.qbittorrent.loadbalancer.server.port=8080
+     - traefik.docker.network=proxy
 
 # ############################
 # # FLARESOLVERR

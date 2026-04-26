@@ -215,11 +215,11 @@ services:
       - /arr/data/media:/media
     restart: unless-stopped    
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://127.0.0.1:8080 && curl -f http://127.0.0.1:8080/api/v2/app/version"]
-      interval: 30s
-      timeout: 15s
-      retries: 4
-      start_period: 120s
+      test: ["CMD-SHELL", "curl -s 'http://localhost:8080/api/v2/transfer/info' | jq -e '.dht_nodes > 0'"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+      start_period: 2m
     labels:
      - homepage.group=ArrStack
      - homepage.name=Qbittorrent

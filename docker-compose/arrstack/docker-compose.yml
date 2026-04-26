@@ -1,22 +1,6 @@
 services:
 
 ############################
-# AUTOHEAL - Automatically restarts unhealthy containers
-############################
-
-  autoheal:
-    image: willfarrell/autoheal:latest
-    container_name: autoheal
-    restart: unless-stopped
-    environment:
-      - AUTOHEAL_CONTAINER_LABEL=all
-      - AUTOHEAL_INTERVAL=30
-      - AUTOHEAL_START_PERIOD=60
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-    network_mode: none
-
-############################
 # GLUETUN
 ############################
 
@@ -51,8 +35,6 @@ services:
       - WIREGUARD_PRIVATE_KEY=qNQQLYMpU67R9pZfxWMbIARrDZn+PUOku0/qaam/I0Q=
       - SERVER_COUNTRIES=Netherlands
     restart: unless-stopped
-    labels:
-      - autoheal=true
 
 ############################
 # RADARR
@@ -62,13 +44,6 @@ services:
     image: lscr.io/linuxserver/radarr:latest
     container_name: radarr1
     network_mode: "service:gluetun"
-    # healthcheck:
-    #   #test: ["CMD", "http://gluetun:9999/gluetun-entrypoint", "healthcheck"]
-    #   #test: ["CMD-SHELL", "curl -f http://gluetun:9999/gluetun-entrypoint || kill 1"]
-    #   interval: 30s
-    #   timeout: 10s
-    #   retries: 3
-    #   start_period: 30s
     environment:
       - PUID=1000
       - PGID=1000
@@ -89,7 +64,6 @@ services:
       retries: 3
       start_period: 60s
     labels:
-     - autoheal=true
      - homepage.group=ArrStack
      - homepage.name=Radarr
      - homepage.icon=radarr.png
@@ -102,25 +76,31 @@ services:
      - traefik.http.services.radarr.loadbalancer.server.port=7878
      - traefik.docker.network=proxy
 
-# ############################
-# # SONARR
-# ############################
+############################
+# SONARR
+############################
 
-#   sonarr:
-#     image: lscr.io/linuxserver/sonarr:latest
-#     container_name: sonarr1
-#     network_mode: "service:gluetun"
-#     networks:
-#       - proxy
-#     environment:
-#       - PUID=1000
-#       - PGID=1000
-#       - TZ=America/New_York
-#     volumes:
-#       - /etc/localtime:/etc/localtime:ro
-#       - /arr/data/configs/sonarr:/config
-#       - /arr/data/media:/media
-#     restart: unless-stopped
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr1
+    network_mode: "service:gluetun"
+    networks:
+      - proxy
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /arr/data/configs/sonarr:/config
+      - /arr/data/media:/media
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8989/ping"]
+      interval: 45s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
 
 # ############################
 # # PROWLARR

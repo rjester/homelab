@@ -44,13 +44,13 @@ services:
     image: lscr.io/linuxserver/radarr:latest
     container_name: radarr1
     network_mode: "service:gluetun"
-    healthcheck:
-      #test: ["CMD", "http://gluetun:9999/gluetun-entrypoint", "healthcheck"]
-      #test: ["CMD-SHELL", "curl -f http://gluetun:9999/gluetun-entrypoint || kill 1"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 30s
+    # healthcheck:
+    #   #test: ["CMD", "http://gluetun:9999/gluetun-entrypoint", "healthcheck"]
+    #   #test: ["CMD-SHELL", "curl -f http://gluetun:9999/gluetun-entrypoint || kill 1"]
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 3
+    #   start_period: 30s
     environment:
       - PUID=1000
       - PGID=1000

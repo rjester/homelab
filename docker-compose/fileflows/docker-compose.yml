@@ -1,0 +1,31 @@
+services:
+  fileflows:
+    image: revenz/fileflows
+    restart: unless-stopped
+    environment:
+      - TempPathHost=/docker/fileflows/temp
+      - TZ=America/New_York
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /docker/fileflows/temp:/temp
+      - /docker/fileflows/data:/app/Data
+      - /docker/fileflows/logs:/app/Logs
+      - /arr/data/media/movies:/movies
+      - /arr/data/media/tv:/tv
+    networks:
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=proxy"
+
+      - "traefik.http.routers.fileflows.rule=Host(`fileflows.rjester.us`)"
+      - "traefik.http.routers.fileflows.entrypoints=https"
+      - "traefik.http.routers.fileflows.tls.certresolver=cloudflare"
+
+      - "traefik.http.services.fileflows.loadbalancer.server.port=5000"
+
+networks:
+  proxy:
+    external: true

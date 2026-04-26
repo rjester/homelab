@@ -118,7 +118,7 @@ services:
 
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
-    container_name: prowlarr
+    container_name: prowlarr1
     network_mode: "service:gluetun"
     environment:
       - PUID=1000
@@ -153,7 +153,7 @@ services:
 
 #   bazarr:
 #     image: lscr.io/linuxserver/bazarr:latest
-#     container_name: bazarr
+#     container_name: bazarr1
 #     network_mode: "service:gluetun"
 #     environment:
 #       - PUID=1000
@@ -171,7 +171,7 @@ services:
 
 #   qbittorrent:
 #     image: lscr.io/linuxserver/qbittorrent:latest
-#     container_name: qbittorrent
+#     container_name: qbittorrent1
 #     network_mode: "service:gluetun"
 #     environment:
 #       - PUID=1000
@@ -191,7 +191,7 @@ services:
 
 #   flaresolverr:
 #     image: ghcr.io/flaresolverr/flaresolverr:latest
-#     container_name: flaresolverr
+#     container_name: flaresolverr1
 #     network_mode: "service:gluetun"
 #     environment:
 #       - LOG_LEVEL=info
@@ -227,7 +227,7 @@ services:
 #   seerr:
 #     image: ghcr.io/seerr-team/seerr:latest
 #     init: true
-#     container_name: seerr
+#     container_name: seerr1
 #     environment:
 #       - LOG_LEVEL=debug
 #       - TZ=America/New_York

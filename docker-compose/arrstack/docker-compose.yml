@@ -287,7 +287,7 @@ services:
       interval: 15s
       retries: 3
     restart: unless-stopped
-  labels:
+    labels:
      - homepage.group=ArrStack
      - homepage.name=Seerr
      - homepage.icon=seerr.png

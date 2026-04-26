@@ -30,26 +30,38 @@ services:
       - SERVER_COUNTRIES=Netherlands
     restart: unless-stopped
 
-# ############################
-# # RADARR
-# ############################
+############################
+# RADARR
+############################
 
-#   radarr:
-#     image: lscr.io/linuxserver/radarr:latest
-#     container_name: radarr1
-#     network_mode: "service:gluetun"
-#     environment:
-#       - PUID=1000
-#       - PGID=1000
-#       - TZ=America/New_York
-#     networks:
-#       - proxy
-#     volumes:
-#       - /etc/localtime:/etc/localtime:ro
-#       - /arr/data/configs/radarr:/config
-#       - /arr/data/media:/media
-#       - /arr/data/media/downloads:/downloads
-#     restart: unless-stopped    
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr1
+    network_mode: "service:gluetun"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+    networks:
+      - proxy
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /arr/data/configs/radarr:/config
+      - /arr/data/media:/media
+      - /arr/data/media/downloads:/downloads
+    restart: unless-stopped    
+    labels:
+     - homepage.group=ArrStack
+     - homepage.name=Radarr
+     - homepage.icon=radarr.png
+     - homepage.href=https://radarr.rjester.us/
+     - homepage.description=Radarr is a movie collection manager for Usenet and BitTorrent users. It can monitor multiple RSS feeds for new movies and will automatically add them to your collection, even when they are released. It also has support for automatically downloading, sorting, and renaming files.
+     - traefik.enable=true
+     - traefik.http.routers.radarr.rule=Host(`radarr.rjester.us`)
+     - traefik.http.routers.radarr.entrypoints=https
+     - traefik.http.routers.radarr.tls=true
+     - traefik.http.services.radarr.loadbalancer.server.port=7878
+     - traefik.docker.network=proxy
 
 # ############################
 # # SONARR

@@ -99,6 +99,18 @@ services:
       timeout: 10s
       retries: 3
       start_period: 60s
+    labels:
+     - homepage.group=ArrStack
+     - homepage.name=Sonarr
+     - homepage.icon=sonarr.png
+     - homepage.href=https://sonarr.rjester.us/
+     - homepage.description=Sonarr is a TV series collection manager for Usenet and BitTorrent users. It can monitor multiple RSS feeds for new episodes and will automatically add them to your collection, even when they are released. It also has support for automatically downloading, sorting, and renaming files.
+     - traefik.enable=true
+     - traefik.http.routers.sonarr.rule=Host(`sonarr.rjester.us`)
+     - traefik.http.routers.sonarr.entrypoints=https
+     - traefik.http.routers.sonarr.tls=true
+     - traefik.http.services.sonarr.loadbalancer.server.port=8989
+     - traefik.docker.network=proxy
 
 # ############################
 # # PROWLARR

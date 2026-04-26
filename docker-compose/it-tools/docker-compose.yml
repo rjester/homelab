@@ -2,6 +2,8 @@ services:
   it-tools:
     container_name: it-tools
     restart: unless-stopped
+    networks:
+      - proxy
     #ports:
     #  - '8088:80'
     image: 'corentinth/it-tools:latest'
@@ -11,3 +13,7 @@ services:
       - traefik.http.routers.it-tools.entrypoints=https
       - traefik.http.routers.it-tools.tls=true
       - traefik.http.services.it-tools.loadbalancer.server.port=80
+      - traefik.docker.network=proxy
+networks:
+  proxy:          # use the same name as above
+    external: true

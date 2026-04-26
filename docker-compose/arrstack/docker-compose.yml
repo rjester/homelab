@@ -48,8 +48,8 @@ services:
       test: ["CMD", "http://gluetun:9999/gluetun-entrypoint", "healthcheck"]
       interval: 30s
       timeout: 10s
-      retries: 3
-      start_period: 10s
+      retries: 1
+      start_period: 20s
     environment:
       - PUID=1000
       - PGID=1000

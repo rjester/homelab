@@ -212,7 +212,7 @@ services:
      - homepage.group=ArrStack
      - homepage.name=Qbittorrent
      - homepage.icon=qbittorrent.png
-     - homepage.href=https://qbittorrent.rjester.us/
+     - homepage.href=https://qbit.rjester.us/
      - homepage.description=Qbittorrent is a torrent client for Usenet and BitTorrent users. It can monitor multiple RSS feeds for new content and will automatically add them to your collection, even when they are released. It also has support for automatically downloading, sorting, and renaming files.
      - traefik.enable=true
      - traefik.http.routers.qbittorrent.rule=Host(`qbit.rjester.us`)

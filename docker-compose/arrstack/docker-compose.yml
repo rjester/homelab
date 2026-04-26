@@ -147,23 +147,41 @@ services:
      - traefik.http.services.prowlarr.loadbalancer.server.port=9696
      - traefik.docker.network=proxy
 
-# ############################
-# # BAZARR
-# ############################
+############################
+# BAZARR
+############################
 
-#   bazarr:
-#     image: lscr.io/linuxserver/bazarr:latest
-#     container_name: bazarr1
-#     network_mode: "service:gluetun"
-#     environment:
-#       - PUID=1000
-#       - PGID=1000
-#       - TZ=America/New_York
-#     volumes:
-#       - /etc/localtime:/etc/localtime:ro
-#       - /arr/data/configs/bazarr:/config
-#       - /arr/data/media:/media
-#     restart: unless-stopped
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr1
+    network_mode: "service:gluetun"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /arr/data/configs/bazarr:/config
+      - /arr/data/media:/media
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:6767/api/v1/health"]
+      interval: 45s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    labels:
+     - homepage.group=ArrStack
+     - homepage.name=Bazarr
+     - homepage.icon=bazarr.png
+     - homepage.href=https://bazarr.rjester.us/
+     - homepage.description=Bazarr is a subtitle management tool for Usenet and BitTorrent users. It can monitor multiple RSS feeds for new content and will automatically add them to your collection, even when they are released. It also has support for automatically downloading, sorting, and renaming files.
+     - traefik.enable=true
+     - traefik.http.routers.bazarr.rule=Host(`bazarr.rjester.us`)
+     - traefik.http.routers.bazarr.entrypoints=https
+     - traefik.http.routers.bazarr.tls=true
+     - traefik.http.services.bazarr.loadbalancer.server.port=6767
+     - traefik.docker.network=proxy
 
 # ############################
 # # QBITTORRENT		

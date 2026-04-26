@@ -221,20 +221,26 @@ services:
      - traefik.http.services.qbittorrent.loadbalancer.server.port=8080
      - traefik.docker.network=proxy
 
-# ############################
-# # FLARESOLVERR
-# ############################
+############################
+# FLARESOLVERR
+############################
 
-#   flaresolverr:
-#     image: ghcr.io/flaresolverr/flaresolverr:latest
-#     container_name: flaresolverr1
-#     network_mode: "service:gluetun"
-#     environment:
-#       - LOG_LEVEL=info
-#       - LOG_HTML=false
-#       - CAPTCHA_SOLVER=none
-#       - TZ=America/New_York
-#     restart:  unless-stopped    
+  flaresolverr:
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    container_name: flaresolverr1
+    network_mode: "service:gluetun"
+    environment:
+      - LOG_LEVEL=info
+      - LOG_HTML=false
+      - CAPTCHA_SOLVER=none
+      - TZ=America/New_York
+    restart:  unless-stopped 
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8191/"]
+      interval: 45s
+      timeout: 10s
+      retries: 3
+      start_period: 30s   
 
 # # ############################
 # # # JELLYFIN
@@ -256,31 +262,43 @@ services:
 # #       - /arr/data/configs/jellyfin:/config
 # #       - /arr/data/media:/media
 
-# ############################
-# # SEERR
-# ############################
+############################
+# SEERR
+############################
 
-#   seerr:
-#     image: ghcr.io/seerr-team/seerr:latest
-#     init: true
-#     container_name: seerr1
-#     environment:
-#       - LOG_LEVEL=debug
-#       - TZ=America/New_York
-#       - PORT=5055
-#     ports:
-#       - 5055:5055
-#     networks:
-#       - proxy
-#     volumes:
-#       - /arr/data/configs/seerr:/app/config
-#     healthcheck:
-#       test: wget --no-verbose --tries=1 --spider http://localhost:5055/api/v1/status || exit 1
-#       start_period: 20s
-#       timeout: 3s
-#       interval: 15s
-#       retries: 3
-#     restart: unless-stopped
+  seerr:
+    image: ghcr.io/seerr-team/seerr:latest
+    init: true
+    container_name: seerr1
+    environment:
+      - LOG_LEVEL=debug
+      - TZ=America/New_York
+      - PORT=5055
+    ports:
+      - 5055:5055
+    networks:
+      - proxy
+    volumes:
+      - /arr/data/configs/seerr:/app/config
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:5055/api/v1/status || exit 1
+      start_period: 20s
+      timeout: 3s
+      interval: 15s
+      retries: 3
+    restart: unless-stopped
+  labels:
+     - homepage.group=ArrStack
+     - homepage.name=Seerr
+     - homepage.icon=seerr.png
+     - homepage.href=https://seerr.rjester.us/
+     - homepage.description=Seerr is a media discovery and request management tool.
+     - traefik.enable=true
+     - traefik.http.routers.seerr.rule=Host(`seerr.rjester.us`)
+     - traefik.http.routers.seerr.entrypoints=https
+     - traefik.http.routers.seerr.tls=true
+     - traefik.http.services.seerr.loadbalancer.server.port=5055
+     - traefik.docker.network=proxy
 
 networks:
   proxy:

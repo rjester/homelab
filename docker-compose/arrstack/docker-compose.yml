@@ -112,22 +112,40 @@ services:
      - traefik.http.services.sonarr.loadbalancer.server.port=8989
      - traefik.docker.network=proxy
 
-# ############################
-# # PROWLARR
-# ############################
+############################
+# PROWLARR
+############################
 
-#   prowlarr:
-#     image: lscr.io/linuxserver/prowlarr:latest
-#     container_name: prowlarr
-#     network_mode: "service:gluetun"
-#     environment:
-#       - PUID=1000
-#       - PGID=1000
-#       - TZ=America/New_York
-#     volumes:
-#       - /arr/data/configs/prowlarr:/config
-#       - /arr/data/media:/media
-#     restart: unless-stopped
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
+    network_mode: "service:gluetun"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+    volumes:
+      - /arr/data/configs/prowlarr:/config
+      - /arr/data/media:/media
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:9696/ping"]
+      interval: 45s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    labels:
+     - homepage.group=ArrStack
+     - homepage.name=Prowlarr
+     - homepage.icon=prowlarr.png
+     - homepage.href=https://prowlarr.rjester.us/
+     - homepage.description=Prowlarr is an indexer manager/proxy for Usenet and BitTorrent users. It can monitor multiple RSS feeds for new content and will automatically add them to your collection, even when they are released. It also has support for automatically downloading, sorting, and renaming files.
+     - traefik.enable=true
+     - traefik.http.routers.prowlarr.rule=Host(`prowlarr.rjester.us`)
+     - traefik.http.routers.prowlarr.entrypoints=https
+     - traefik.http.routers.prowlarr.tls=true
+     - traefik.http.services.prowlarr.loadbalancer.server.port=9696
+     - traefik.docker.network=proxy
 
 # ############################
 # # BAZARR

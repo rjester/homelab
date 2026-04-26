@@ -1,6 +1,22 @@
 services:
 
 ############################
+# AUTOHEAL - Automatically restarts unhealthy containers
+############################
+
+  autoheal:
+    image: willfarrell/autoheal:latest
+    container_name: autoheal
+    restart: unless-stopped
+    environment:
+      - AUTOHEAL_CONTAINER_LABEL=all
+      - AUTOHEAL_INTERVAL=30
+      - AUTOHEAL_START_PERIOD=60
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    network_mode: none
+
+############################
 # GLUETUN
 ############################
 
@@ -35,6 +51,8 @@ services:
       - WIREGUARD_PRIVATE_KEY=qNQQLYMpU67R9pZfxWMbIARrDZn+PUOku0/qaam/I0Q=
       - SERVER_COUNTRIES=Netherlands
     restart: unless-stopped
+    labels:
+      - autoheal=true
 
 ############################
 # RADARR
@@ -64,7 +82,14 @@ services:
       - /arr/data/media:/media
       - /arr/data/media/downloads:/downloads
     restart: unless-stopped    
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:7878/ping"]
+      interval: 45s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
     labels:
+     - autoheal=true
      - homepage.group=ArrStack
      - homepage.name=Radarr
      - homepage.icon=radarr.png

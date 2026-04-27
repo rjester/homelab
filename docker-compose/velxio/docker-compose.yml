@@ -5,4 +5,4 @@ services:
         ports:
             - '3080:80'
         volumes:
-          - /docker/vexio/data:/app/data
+          - /docker/velxio/data:/app/data

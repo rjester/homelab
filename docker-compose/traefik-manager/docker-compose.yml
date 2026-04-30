@@ -1,0 +1,13 @@
+services:
+  traefik-manager:
+    image: ghcr.io/chr0nzz/traefik-manager:latest
+    container_name: traefik-manager
+    restart: unless-stopped
+    ports:
+      - "5052:5000"
+    environment:
+      - COOKIE_SECURE=false
+    volumes:
+      - /docker/traefik/data/dynamic.yml:/app/config/dynamic.yml
+      - /docker/traefik-manager/config:/app/config
+      - /docker/traefik-manager/backups:/app/backups

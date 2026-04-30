@@ -6,8 +6,10 @@ services:
     ports:
       - "5052:5000"
     environment:
+      - TM_TRAEFIK_URL=http://192.168.0.125:8080
       - COOKIE_SECURE=false
     volumes:
       - /docker/traefik/data/dynamic.yml:/app/config/dynamic.yml
+      - /docker/traefik-manager/data:/app/data
       - /docker/traefik-manager/config:/app/config
       - /docker/traefik-manager/backups:/app/backups

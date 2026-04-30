@@ -5,11 +5,17 @@ services:
     restart: unless-stopped
     ports:
       - "5052:5000"
+    networks:
+      - proxy
     environment:
-      - TM_TRAEFIK_URL=http://192.168.0.125:8080
+      - TM_TRAEFIK_URL=http://192.168.0.125
       - COOKIE_SECURE=false
     volumes:
       - /docker/traefik/data/dynamic.yml:/app/config/dynamic.yml
       - /docker/traefik-manager/data:/app/data
       - /docker/traefik-manager/config:/app/config
       - /docker/traefik-manager/backups:/app/backups
+
+networks:
+  proxy:
+    external: true

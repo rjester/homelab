@@ -1,8 +1,9 @@
 
 services:
     velxio:
-        image: 'ghcr.io/davidmonterocrespo24/velxio:master'
+        image: 'ghcr.io/davidmonterocrespo24/velxio:release'
         ports:
             - '3080:80'
+            - '3081:8001'
         volumes:
           - /docker/velxio/data:/app/data

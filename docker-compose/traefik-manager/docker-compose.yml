@@ -3,18 +3,22 @@ services:
     image: ghcr.io/chr0nzz/traefik-manager:latest
     container_name: traefik-manager
     restart: unless-stopped
-    ports:
-      - "5052:5000"
     networks:
       - proxy
     environment:
       #- TM_TRAEFIK_URL=http://192.168.0.125
-      - COOKIE_SECURE=false
+      - COOKIE_SECURE=true
     volumes:
       - /docker/traefik/data/dynamic.yml:/app/config/dynamic.yml
       - /docker/traefik-manager/data:/app/data
       - /docker/traefik-manager/config:/app/config
       - /docker/traefik-manager/backups:/app/backups
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik-manager.rule=Host(`traefik-manager.rjester.us`)"
+      - "traefik.http.routers.traefik-manager.entrypoints=https"
+      - "traefik.http.routers.traefik-manager.tls.certresolver=cloudflare"
+      - "traefik.http.services.traefik-manager.loadbalancer.server.port=5000"
 
 networks:
   proxy:

@@ -13,18 +13,18 @@ services:
       # - 443:443/tcp # Uncomment if you want HTTP3
       # - 443:443/udp # Uncomment if you want HTTP3
     environment:
-      #CF_DNS_API_TOKEN_FILE: /run/secrets/cf_api_token # note using _FILE for docker secrets
-      CF_DNS_API_TOKEN: ${CF_DNS_API_TOKEN} # if using .env
+      CF_DNS_API_TOKEN_FILE: /run/secrets/cf_api_token # note using _FILE for docker secrets
+      #CF_DNS_API_TOKEN: ${CF_DNS_API_TOKEN} # if using .env
       TRAEFIK_DASHBOARD_CREDENTIALS: ${TRAEFIK_DASHBOARD_CREDENTIALS}
-    #secrets:
-    #  - cf_api_token
-    #env_file: .env # use .env
+    secrets:
+      - cf_api_token
+    env_file: .env # use .env
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./data/traefik.yml:/traefik.yml:ro
-      - ./data/acme.json:/acme.json
-      - ./data/config.yml:/config.yml:ro
+      - /docker/traefik/data/traefik.yml:/traefik.yml:ro
+      - /docker/traefik/data/acme.json:/acme.json
+      - /docker/traefik/data/config.yml:/config.yml:ro
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=proxy"
@@ -49,9 +49,9 @@ services:
       - "traefik.http.routers.traefik-secure.tls.domains[2].sans=*.rjester.us"
       - "traefik.http.routers.traefik-secure.service=api@internal"
 
-#secrets:
-#  cf_api_token:
-#    file: ./cf_api_token.txt
+secrets:
+  cf_api_token:
+    file: /docker/traefik/cf_api_token.txt
 
 networks:
   proxy:

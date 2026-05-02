@@ -49,7 +49,7 @@ services:
       # HTTP router (redirect to HTTPS)
       - "traefik.http.routers.tm.entrypoints=http"
       - "traefik.http.routers.tm.rule=Host(`traefik-manager.local.solemnorangutan.com`)"
-      - "traefik.http.routers.tm.middlewares=https-redirectscheme"
+      - "traefik.http.routers.tm.middlewares=https-redirectscheme@file"
 
       # HTTPS router
       - "traefik.http.routers.tm-secure.entrypoints=https"

@@ -25,7 +25,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /docker/traefik/data/traefik.yml:/traefik.yml:ro
-      - ./data/dynamic.yml:/dynamic.yml:ro
+      - /docker/traefik/data/dynamic.yml:/dynamic.yml:ro
       - /docker/traefik/data/acme.json:/acme.json
 
   traefik-manager:

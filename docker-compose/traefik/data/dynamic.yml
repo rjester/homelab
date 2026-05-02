@@ -1,0 +1,173 @@
+http:
+  routers:
+
+    # -----------------------
+    # Traefik Dashboard
+    # -----------------------
+    traefik-dashboard:
+      entryPoints:
+        - https
+      rule: "Host(`traefik-dashboard.local.solemnorangutan.com`)"
+      middlewares:
+        - default-headers
+        - auth
+      tls: {}
+      service: api@internal
+
+    # -----------------------
+    # External Services
+    # -----------------------
+
+    portainer:
+      entryPoints: [https]
+      rule: "Host(`portainer.local.solemnorangutan.com`) || Host(`portainer.local.russjester.com`) || Host(`portainer.rjester.us`)"
+      middlewares:
+        - default-headers
+        - https-redirectscheme
+      tls: {}
+      service: portainer
+
+    adguard:
+      entryPoints: [https]
+      rule: "Host(`adguard-primary.local.solemnorangutan.com`) || Host(`adguard-primary.local.russjester.com`) || Host(`adguard-primary.rjester.us`)"
+      middlewares:
+        - default-headers
+        - https-redirectscheme
+      tls: {}
+      service: adguard
+
+    adguard-secondary:
+      entryPoints: [https]
+      rule: "Host(`adguard-secondary.local.solemnorangutan.com`) || Host(`adguard-secondary.local.russjester.com`) || Host(`adguard-secondary.rjester.us`)"
+      middlewares:
+        - default-headers
+        - https-redirectscheme
+      tls: {}
+      service: adguard-secondary
+
+    homeassistant:
+      entryPoints: [https]
+      rule: "Host(`homeassistant.local.solemnorangutan.com`) || Host(`homeassistant.local.russjester.com`) || Host(`homeassistant.rjester.us`)"
+      middlewares:
+        - default-headers
+        - https-redirectscheme
+      tls: {}
+      service: homeassistant
+
+    jellyfin:
+      entryPoints: [https]
+      rule: "Host(`media.local.solemnorangutan.com`) || Host(`media.local.russjester.com`) || Host(`media.rjester.us`)"
+      middlewares:
+        - default-headers
+        - https-redirectscheme
+      tls: {}
+      service: jellyfin
+
+    homepage:
+      entryPoints: [https]
+      rule: "Host(`home.local.solemnorangutan.com`) || Host(`home.local.russjester.com`) || Host(`home.rjester.us`)"
+      middlewares:
+        - default-headers
+        - https-redirectscheme
+      tls: {}
+      service: homepage
+
+  services:
+
+    portainer:
+      loadBalancer:
+        servers:
+          - url: "https://192.168.0.125:9443"
+        passHostHeader: true
+
+    adguard:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.0.74:80"
+        passHostHeader: true
+
+    adguard-secondary:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.0.125:82"
+        passHostHeader: true
+
+    homeassistant:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.0.230:8123"
+        passHostHeader: true
+
+    jellyfin:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.0.125:8096"
+        passHostHeader: true
+
+    homepage:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.0.125:8089"
+        passHostHeader: true
+
+  middlewares:
+
+    # -----------------------
+    # Auth (used for dashboard)
+    # -----------------------
+    auth:
+      basicAuth:
+        users:
+          - "${TRAEFIK_DASHBOARD_CREDENTIALS}"
+
+    # -----------------------
+    # Redirect HTTP -> HTTPS
+    # -----------------------
+    https-redirectscheme:
+      redirectScheme:
+        scheme: https
+        permanent: true
+
+    # -----------------------
+    # Security Headers
+    # -----------------------
+    default-headers:
+      headers:
+        frameDeny: true
+        browserXssFilter: true
+        contentTypeNosniff: true
+        forceSTSHeader: true
+        stsIncludeSubdomains: true
+        stsPreload: true
+        stsSeconds: 15552000
+        customFrameOptionsValue: SAMEORIGIN
+        customRequestHeaders:
+          X-Forwarded-Proto: https
+
+    # -----------------------
+    # Optional (kept from your config)
+    # -----------------------
+    addprefix-pihole:
+      addPrefix:
+        prefix: "/admin"
+
+    redirectregex-pihole:
+      redirectRegex:
+        regex: "/admin/(.*)"
+        replacement: /
+
+    default-whitelist:
+      ipAllowList:
+        sourceRange:
+          - "10.0.0.0/8"
+          - "192.168.0.0/16"
+          - "192.168.16.0/16"
+          - "192.168.240.0/16"
+          - "172.16.0.0/12"
+          - "172.22.0.0/12"
+
+    secured:
+      chain:
+        middlewares:
+          - default-whitelist
+          - default-headers

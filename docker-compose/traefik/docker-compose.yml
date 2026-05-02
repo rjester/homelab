@@ -1,57 +1,70 @@
+version: "3.9"
+
 services:
-  traefik:
-    image: traefik:latest
+  traefik1:
+    image: traefik:v3.0
     container_name: traefik1
     restart: unless-stopped
+
     security_opt:
       - no-new-privileges:true
+
     networks:
       - proxy
+
     ports:
-      - 80:80
-      - 443:443
-      # - 443:443/tcp # Uncomment if you want HTTP3
-      # - 443:443/udp # Uncomment if you want HTTP3
+      - "80:80"
+      - "443:443"
+
     environment:
-      CF_DNS_API_TOKEN_FILE: /run/secrets/cf_api_token # note using _FILE for docker secrets
-      #CF_DNS_API_TOKEN: ${CF_DNS_API_TOKEN} # if using .env
-      TRAEFIK_DASHBOARD_CREDENTIALS: ${TRAEFIK_DASHBOARD_CREDENTIALS}
+      CF_DNS_API_TOKEN_FILE: /run/secrets/cf_api_token
+
     secrets:
       - cf_api_token
-    env_file: .env # use .env
+
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /docker/traefik/data/traefik.yml:/traefik.yml:ro
-      - /docker/traefik/data/acme.json:/acme.json
-      - /docker/traefik/data/config.yml:/config.yml:ro
+      - ./data/traefik.yml:/traefik.yml:ro
+      - ./data/dynamic.yml:/dynamic.yml:ro
+      - ./data/acme.json:/acme.json
+
+  traefik-manager:
+    image: ghcr.io/traefik/traefik-manager:latest
+    container_name: traefik-manager
+    restart: unless-stopped
+
+    depends_on:
+      - traefik1
+
+    networks:
+      - proxy
+
+    environment:
+      TRAEFIK_MANAGER_TRAEFIK_URL: http://traefik1:8080
+
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=proxy"
-      - "traefik.http.routers.traefik.entrypoints=http"
-      #- "traefik.http.routers.traefik.rule=Host(`traefik-dashboard.local.solemnorangutan.com`)"
-      - "traefik.http.routers.traefik.rule=Host(`traefik.rjester.us`)"
-      - "traefik.http.middlewares.traefik-auth.basicauth.users=${TRAEFIK_DASHBOARD_CREDENTIALS}"
-      - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
-      - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
-      - "traefik.http.routers.traefik.middlewares=traefik-https-redirect"
-      - "traefik.http.routers.traefik-secure.entrypoints=https"
-      #- "traefik.http.routers.traefik-secure.rule=Host(`traefik-dashboard.local.solemnorangutan.com`)"
-      - "traefik.http.routers.traefik-secure.rule=Host(`traefik.rjester.us`)"
-      - "traefik.http.routers.traefik-secure.middlewares=traefik-auth"
-      - "traefik.http.routers.traefik-secure.tls=true"
-      - "traefik.http.routers.traefik-secure.tls.certresolver=cloudflare"
-      - "traefik.http.routers.traefik-secure.tls.domains[0].main=local.solemnorangutan.com"
-      - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.local.solemnorangutan.com"
-      - "traefik.http.routers.traefik-secure.tls.domains[1].main=local.russjester.com"
-      - "traefik.http.routers.traefik-secure.tls.domains[1].sans=*.local.russjester.com"
-      - "traefik.http.routers.traefik-secure.tls.domains[2].main=rjester.us"
-      - "traefik.http.routers.traefik-secure.tls.domains[2].sans=*.rjester.us"
-      - "traefik.http.routers.traefik-secure.service=api@internal"
+
+      # HTTP router (redirect to HTTPS)
+      - "traefik.http.routers.tm.entrypoints=http"
+      - "traefik.http.routers.tm.rule=Host(`traefik-manager.local.solemnorangutan.com`)"
+      - "traefik.http.routers.tm.middlewares=https-redirectscheme"
+
+      # HTTPS router
+      - "traefik.http.routers.tm-secure.entrypoints=https"
+      - "traefik.http.routers.tm-secure.rule=Host(`traefik-manager.local.solemnorangutan.com`)"
+      - "traefik.http.routers.tm-secure.tls=true"
+      - "traefik.http.routers.tm-secure.tls.certresolver=cloudflare"
+      - "traefik.http.routers.tm-secure.service=tm"
+
+      # Service port
+      - "traefik.http.services.tm.loadbalancer.server.port=8080"
 
 secrets:
   cf_api_token:
-    file: /docker/traefik/cf_api_token.txt
+    file: ./secrets/cf_api_token.txt
 
 networks:
   proxy:

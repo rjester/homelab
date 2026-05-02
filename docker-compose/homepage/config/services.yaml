@@ -124,27 +124,9 @@
         description: Proxy
         widget:
             type: traefik
-            url: "https://traefik-dashboard.local.solemnorangutan.com"
+            url: "http://traefik:8080"
             username: admin # optional
             password: d0pp3lg4ng3r # optional
-    - NPM:
-        icon: nginx-proxy-manager.svg
-        #href: "{{HOMEPAGE_VAR_PORTAINER_URL}}"
-        href: "https://proxy.local.russjester.com"
-        description: Proxy Manager
-        server: my-docker
-        container: npm-app-1
-    # - NetAlertX:
-    #     icon: netalertx.svg
-    #     #href: "{{HOMEPAGE_VAR_PORTAINER_URL}}"
-    #     href: "https://netalertx.local.russjester.com"
-    #     description: Network monitoring
-    #     server: my-docker
-    #     container: NetAlertX
-    #     widget:
-    #         type: netalertx
-    #         url: https://netalertx.local.russjester.com
-    #         #key: netalertxsyncapitoken # optional, only if password is enabled
     - Webmin:
         icon: webmin.svg
         #href: "{{HOMEPAGE_VAR_PORTAINER_URL}}"
@@ -157,7 +139,7 @@
         description: home
         widget:
             type: homeassistant
-            url: "https://hass.local.russjester.com"
+            url: "http://192.168.0.230:8123/"
             key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiI5NWIxYzhkODNkNTY0MzVhYjJhMDVjODlmYTk0MDY2YiIsImlhdCI6MTc0MDY4ODQ4MywiZXhwIjoyMDU2MDQ4NDgzfQ.UTiGMw8cWVtQYgYMAui0Hmd_zyGpjUQYPxedHqtQuFc"
 - Other:
     - IT-Tools:

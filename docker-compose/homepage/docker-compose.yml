@@ -2,7 +2,7 @@ services:
  
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
-    container_name: homepage
+    container_name: homepage1
     environment:
       PUID: 1000 # optional, your user id
       PGID: 1000 # optional, your group id
@@ -17,10 +17,10 @@ services:
     restart: unless-stopped
 labels:
   - traefik.enable=true
-  - traefik.http.routers.homepage.rule=Host(`home.rjester.us`)
-  - traefik.http.routers.homepage.entrypoints=websecure
-  - traefik.http.routers.homepage.tls=true
-  - traefik.http.services.homepage.loadbalancer.server.port=3000 # Default Homepage port
+  - traefik.http.routers.homepage1.rule=Host(`home.rjester.us`)
+  - traefik.http.routers.homepage1.entrypoints=websecure
+  - traefik.http.routers.homepage1.tls=true
+  - traefik.http.services.homepage1.loadbalancer.server.port=3000 # Default Homepage port
 networks:
   proxy:
     external: true

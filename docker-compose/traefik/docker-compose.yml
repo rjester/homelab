@@ -28,7 +28,7 @@ services:
       - ./data/acme.json:/acme.json
 
   traefik-manager:
-    image: ghcr.io/traefik/traefik-manager:latest
+    image: ghcr.io/chr0nzz/traefik-manager:latest
     container_name: traefik-manager
     restart: unless-stopped
 

@@ -15,10 +15,11 @@ services:
       - "443:443"
 
     environment:
-      CF_DNS_API_TOKEN_FILE: /run/secrets/cf_api_token
+      #CF_DNS_API_TOKEN_FILE: /run/secrets/cf_api_token
+      CF_DNS_API_TOKEN: ${CF_DNS_API_TOKEN}
 
-    secrets:
-      - cf_api_token
+    # secrets:
+    #   - cf_api_token
 
     volumes:
       - /etc/localtime:/etc/localtime:ro
@@ -60,9 +61,9 @@ services:
       # Service port
       - "traefik.http.services.tm.loadbalancer.server.port=8080"
 
-secrets:
-  cf_api_token:
-    file: ./secrets/cf_api_token.txt
+# secrets:
+#   cf_api_token:
+#     file: ./secrets/cf_api_token.txt
 
 networks:
   proxy:

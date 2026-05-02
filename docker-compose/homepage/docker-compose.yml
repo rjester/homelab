@@ -7,6 +7,8 @@ services:
       PUID: 1000 # optional, your user id
       PGID: 1000 # optional, your group id
       HOMEPAGE_ALLOWED_HOSTS: home.rjester.us,home.local.russjester.com,home.local.solemnorangutan.com
+    group_add:
+      - "988"   # docker group GID
     ports:
       - 8089:3000
     networks:

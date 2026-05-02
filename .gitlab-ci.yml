@@ -38,5 +38,5 @@ deploy_homepage:
     #   "
   rules:
     - if: $CI_COMMIT_BRANCH == "main" && $CI_COMMIT_PATH =~ /docker-compose\/homepage\//
-      when: manual   # Change to "on_success" when you're confident
+      when: on_success
   environment: production

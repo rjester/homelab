@@ -18,7 +18,7 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.homepage1.rule=Host(`home.rjester.us`)
-      - traefik.http.routers.homepage1.entrypoints=websecure
+      - traefik.http.routers.homepage1.entrypoints=https
       - traefik.http.routers.homepage1.tls=true
       - traefik.http.services.homepage1.loadbalancer.server.port=3000 # Default Homepage port
 networks:

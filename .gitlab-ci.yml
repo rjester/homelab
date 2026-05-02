@@ -21,9 +21,9 @@ deploy_homepage:
     - ssh-keyscan -H $DEPLOY_SERVER >> ~/.ssh/known_hosts
   script:
     - echo "📤 Syncing Homepage config files..."
-    - rsync -avz --delete \
-        config/ \
-        $DEPLOY_USER@$DEPLOY_SERVER:$CONFIG_DIR/
+    # - rsync -avz --delete \
+    #     config/ \
+    #     $DEPLOY_USER@$DEPLOY_SERVER:$CONFIG_DIR/
 
     # - echo "📤 Deploying docker-compose.yml..."
     # - scp docker-compose.yml $DEPLOY_USER@$DEPLOY_SERVER:$COMPOSE_FILE

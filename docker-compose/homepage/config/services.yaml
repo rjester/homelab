@@ -96,7 +96,7 @@
     - Adguard-Primary:
         icon: adguard-home.svg
         #href: "{{HOMEPAGE_VAR_PORTAINER_URL}}"
-        href: "https://adguard-primary.local.russjester.com"
+        href: "http://192.168.0.74"
         description: Ad Blocker
         widget:
             type: adguard

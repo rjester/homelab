@@ -1,0 +1,183 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/latest/configs/services
+
+- Containers:
+    - Portainer:
+        icon: portainer.svg
+        #href: "{{HOMEPAGE_VAR_PORTAINER_URL}}"
+        href: "https://portainer.local.russjester.com"
+        description: docker
+        widget:
+            type: portainer
+            url: "https://portainer.local.russjester.com"
+            env: 2
+            key: "ptr_dD4xPrg92i/4yxviOJNDVQbHG3kKX80qKtEKL10Xml0="
+        #api key: ptr_dD4xPrg92i/4yxviOJNDVQbHG3kKX80qKtEKL10Xml0=
+- arr:
+    - Radarr:
+        icon: radarr.svg
+        #href: "{{HOMEPAGE_VAR_PORTAINER_URL}}"
+        href: "https://radarr.rjester.us"
+        description: Movies
+        server: my-docker
+        container: radarr
+    - Sonarr:
+        icon: sonarr.svg
+        #href: "{{HOMEPAGE_VAR_PORTAINER_URL}}"
+        href: "https://sonarr.rjester.us"
+        description: TV shows
+        server: my-docker
+        container: sonarr
+    - Bazarr:
+        icon: bazarr.svg
+        #href: "{{HOMEPAGE_VAR_PORTAINER_URL}}"
+        href: "https://bazarr.rjester.us"
+        description: Subtitles
+        server: my-docker
+        container: bazarr
+    - Prowlarr:
+        icon: prowlarr.svg
+        #href: "{{HOMEPAGE_VAR_PORTAINER_URL}}"
+        href: "https://prowlarr.rjester.us"
+        description: Indexers
+        server: my-docker
+        container: prowlarr
+    - Seerr:
+        icon: seerr.svg
+        #href: "{{HOMEPAGE_VAR_PORTAINER_URL}}"
+        href: "https://seerr.rjester.us"
+        description: discovery
+        server: my-docker
+        container: seerr
+    - qbittorrent:
+        icon: qbittorrent.svg
+        #href: "{{HOMEPAGE_VAR_PORTAINER_URL}}"
+        href: "https://qbit.rjester.us"
+        description: Torrent Client
+        server: my-docker
+        container: qbittorrent
+    - fileflows:
+        icon: fileflows.svg
+        #href: "{{HOMEPAGE_VAR_PORTAINER_URL}}"
+        href: "https://fileflows.rjester.us"
+        description: Transcoding and automation
+        server: my-docker
+        container: fileflows
+- Media:
+    - Jellyfin:
+        icon: jellyfin.svg
+        #href: "{{HOMEPAGE_VAR_PORTAINER_URL}}"
+        href: "https://media.local.russjester.com"
+        description: Movies and TV shows
+        server: my-docker
+        container: jellyfin
+    - AudioBookShelf:
+        icon: audiobookshelf.svg
+        #href: "{{HOMEPAGE_VAR_PORTAINER_URL}}"
+        href: "https://audiobooks.local.russjester.com"
+        description: Audiobooks
+        server: my-docker
+        container: audiobookshelf-audiobookshelf-1
+- Network:
+    # - Adguard-Primary:
+    #     icon: adguard-home.svg
+    #     #href: "{{HOMEPAGE_VAR_PORTAINER_URL}}"
+    #     href: "https://adguard.local.russjester.com"
+    #     description: Ad Blocker
+    #     server: my-docker
+    #     container: adguard
+    #     widget:
+    #         type: adguard
+    #         url: https://adguard.local.russjester.com
+    #         fields: ["queries", "blocked", "filtered", "latency"]
+    #         username: rjester
+    #         password: mtgb%iCG7Y9&JLYy
+    - Adguard-Primary:
+        icon: adguard-home.svg
+        #href: "{{HOMEPAGE_VAR_PORTAINER_URL}}"
+        href: "https://adguard-primary.local.russjester.com"
+        description: Ad Blocker
+        widget:
+            type: adguard
+            url: http://192.168.0.74
+            fields: ["queries", "blocked", "filtered", "latency"]
+            username: adguard
+            password: d0pp3lg4ng3r
+    - Adguard-Secondary:
+        icon: adguard-home.svg
+        #href: "{{HOMEPAGE_VAR_PORTAINER_URL}}"
+        href: "http://192.168.0.211"
+        description: Ad Blocker
+        server: my-docker
+        container: adguard
+        widget:
+            type: adguard
+            url: http://192.168.0.211
+            fields: ["queries", "blocked", "filtered", "latency"]
+            username: adguard2
+            password: d0pp3lg4ng3r
+    - Traefik:
+        icon: traefik.svg
+        #href: "{{HOMEPAGE_VAR_PORTAINER_URL}}"
+        href: "https://traefik-dashboard.local.solemnorangutan.com/"
+        description: Proxy
+        widget:
+            type: traefik
+            url: "https://traefik-dashboard.local.solemnorangutan.com"
+            username: admin # optional
+            password: d0pp3lg4ng3r # optional
+    - NPM:
+        icon: nginx-proxy-manager.svg
+        #href: "{{HOMEPAGE_VAR_PORTAINER_URL}}"
+        href: "https://proxy.local.russjester.com"
+        description: Proxy Manager
+        server: my-docker
+        container: npm-app-1
+    # - NetAlertX:
+    #     icon: netalertx.svg
+    #     #href: "{{HOMEPAGE_VAR_PORTAINER_URL}}"
+    #     href: "https://netalertx.local.russjester.com"
+    #     description: Network monitoring
+    #     server: my-docker
+    #     container: NetAlertX
+    #     widget:
+    #         type: netalertx
+    #         url: https://netalertx.local.russjester.com
+    #         #key: netalertxsyncapitoken # optional, only if password is enabled
+    - Webmin:
+        icon: webmin.svg
+        #href: "{{HOMEPAGE_VAR_PORTAINER_URL}}"
+        href: "http://192.168.0.125:100000"
+        description: Webmin
+- Home Automation:
+    - Home Assistant:
+        icon: home-assistant.svg
+        href: "https://hass.local.russjester.com"
+        description: home
+        widget:
+            type: homeassistant
+            url: "https://hass.local.russjester.com"
+            key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiI5NWIxYzhkODNkNTY0MzVhYjJhMDVjODlmYTk0MDY2YiIsImlhdCI6MTc0MDY4ODQ4MywiZXhwIjoyMDU2MDQ4NDgzfQ.UTiGMw8cWVtQYgYMAui0Hmd_zyGpjUQYPxedHqtQuFc"
+- Other:
+    - IT-Tools:
+        icon: it-tools.svg
+        #href: "{{HOMEPAGE_VAR_PORTAINER_URL}}"
+        href: "https://it-tools.local.russjester.com"
+        description: IT-Tools
+        server: my-docker
+        container: it-tools
+    - Mealie:
+        icon: mealie.svg
+        #href: "{{HOMEPAGE_VAR_PORTAINER_URL}}"
+        href: "https://recipes.local.russjester.com"
+        description: Recipes
+        server: my-docker
+        container: mealie
+    - GitLab:
+        icon: gitlab.svg
+        #href: "{{HOMEPAGE_VAR_PORTAINER_URL}}"
+        href: "https://gitlab.rjester.us"
+        description: GitLab
+        server: my-docker
+        container: gitlab

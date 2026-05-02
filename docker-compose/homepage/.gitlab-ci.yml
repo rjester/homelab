@@ -1,0 +1,42 @@
+variables:
+  DEPLOY_DIR: "/docker/homepage"
+  COMPOSE_FILE: "/docker/homepage/docker-compose.yml"
+  CONFIG_DIR: "/docker/homepage/config"
+
+stages:
+  - deploy
+
+deploy_homepage:
+  stage: deploy
+  image: docker:stable
+  services:
+    - docker:dind
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"
+  before_script:
+    - apk add --no-cache openssh-client rsync
+    - mkdir -p ~/.ssh
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - ssh-keyscan -H $DEPLOY_SERVER >> ~/.ssh/known_hosts
+  script:
+    - echo "📤 Syncing Homepage config files..."
+    - rsync -avz --delete \
+        config/ \
+        $DEPLOY_USER@$DEPLOY_SERVER:$CONFIG_DIR/
+
+    # - echo "📤 Deploying docker-compose.yml..."
+    # - scp docker-compose.yml $DEPLOY_USER@$DEPLOY_SERVER:$COMPOSE_FILE
+
+    # - echo "🔄 Updating Homepage container..."
+    # - ssh $DEPLOY_USER@$DEPLOY_SERVER "
+    #     cd $DEPLOY_DIR &&
+    #     docker compose pull homepage &&
+    #     docker compose up -d homepage &&
+    #     echo '✅ Homepage deployed successfully!' &&
+    #     docker compose logs --tail=30 homepage
+    #   "
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main" && $CI_COMMIT_PATH =~ /docker-compose\/homepage\//
+      when: on_success
+  environment: production

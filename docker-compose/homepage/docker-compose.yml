@@ -15,12 +15,12 @@ services:
       - /docker/homepage/config:/app/config # Make sure your local config directory exists
       - /var/run/docker.sock:/var/run/docker.sock:ro # optional, for docker integrations
     restart: unless-stopped
-labels:
-  - traefik.enable=true
-  - traefik.http.routers.homepage1.rule=Host(`home.rjester.us`)
-  - traefik.http.routers.homepage1.entrypoints=websecure
-  - traefik.http.routers.homepage1.tls=true
-  - traefik.http.services.homepage1.loadbalancer.server.port=3000 # Default Homepage port
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.homepage1.rule=Host(`home.rjester.us`)
+      - traefik.http.routers.homepage1.entrypoints=websecure
+      - traefik.http.routers.homepage1.tls=true
+      - traefik.http.services.homepage1.loadbalancer.server.port=3000 # Default Homepage port
 networks:
   proxy:
     external: true

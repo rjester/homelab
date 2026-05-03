@@ -118,7 +118,7 @@ http:
     auth:
       basicAuth:
         users:
-          - "${TRAEFIK_DASHBOARD_CREDENTIALS}"
+          - "admin:$$2y$05$5YIS7dg1YaGgiMuskw3AMuHou/.9aCNXLqlZXCT8JQXPdYaUtASna"
 
     # -----------------------
     # Redirect HTTP -> HTTPS

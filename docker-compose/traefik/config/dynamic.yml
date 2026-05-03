@@ -27,14 +27,14 @@ http:
       tls: {}
       service: portainer
 
-    adguard:
+    adguard-primary:
       entryPoints: [https]
       rule: "Host(`adguard-primary.local.solemnorangutan.com`) || Host(`adguard-primary.local.russjester.com`) || Host(`adguard-primary.rjester.us`)"
       middlewares:
         - default-headers
         - https-redirectscheme
       tls: {}
-      service: adguard
+      service: adguard-primary
 
     adguard-secondary:
       entryPoints: [https]
@@ -83,13 +83,13 @@ http:
     adguard:
       loadBalancer:
         servers:
-          - url: "http://192.168.0.74:80"
+          - url: "http://192.168.0.74"
         passHostHeader: true
 
     adguard-secondary:
       loadBalancer:
         servers:
-          - url: "http://192.168.0.125:82"
+          - url: "http://192.168.0.211"
         passHostHeader: true
 
     homeassistant:

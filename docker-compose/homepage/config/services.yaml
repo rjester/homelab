@@ -144,7 +144,6 @@
 - Other:
     - IT-Tools:
         icon: it-tools.svg
-        #href: "{{HOMEPAGE_VAR_PORTAINER_URL}}"
         href: "https://it-tools.rjester.us"
         description: IT-Tools
         server: my-docker

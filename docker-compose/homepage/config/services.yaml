@@ -95,25 +95,21 @@
     #         password: mtgb%iCG7Y9&JLYy
     - Adguard-Primary:
         icon: adguard-home.svg
-        #href: "{{HOMEPAGE_VAR_PORTAINER_URL}}"
         href: "https://adguard-primary.rjester.us"
-        description: Ad Blocker
+        description: Primary Ad Blocker
         widget:
             type: adguard
-            url: "https://adguard-primary.rjester.us"
+            url: "http://192.168.0.74"
             fields: ["queries", "blocked", "filtered", "latency"]
             username: adguard
             password: d0pp3lg4ng3r
     - Adguard-Secondary:
         icon: adguard-home.svg
-        #href: "{{HOMEPAGE_VAR_PORTAINER_URL}}"
-        href: "http://192.168.0.211"
-        description: Ad Blocker
-        server: my-docker
-        container: adguard
+        href: "https://adguard-secondary.rjester.us"
+        description: Secondary Ad Blocker
         widget:
             type: adguard
-            url: http://192.168.0.211
+            url: "http://192.168.0.211"
             fields: ["queries", "blocked", "filtered", "latency"]
             username: adguard2
             password: d0pp3lg4ng3r

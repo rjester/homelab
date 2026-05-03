@@ -4,8 +4,8 @@ services:
     restart: unless-stopped
     networks:
       - proxy
-    #ports:
-    #  - '8088:80'
+    ports:
+      - '8088:80' # required for access when traefik is down, optional otherwise
     image: 'corentinth/it-tools:latest'
     labels:
       - traefik.enable=true

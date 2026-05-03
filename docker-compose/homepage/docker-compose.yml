@@ -10,7 +10,7 @@ services:
     group_add:
       - "988"   # docker group GID
     ports:
-      - 8089:3000
+      - 8089:3000 # required for access when traefik is down, optional otherwise
     networks:
       - proxy
     volumes:
@@ -19,10 +19,10 @@ services:
     restart: unless-stopped
     labels:
       - traefik.enable=true
-      - traefik.http.routers.homepage1.rule=Host(`home.rjester.us`)
-      - traefik.http.routers.homepage1.entrypoints=https
-      - traefik.http.routers.homepage1.tls=true
-      - traefik.http.services.homepage1.loadbalancer.server.port=3000 # Default Homepage port
+      - traefik.http.routers.homepage.rule=Host(`home.rjester.us`)
+      - traefik.http.routers.homepage.entrypoints=https
+      - traefik.http.routers.homepage.tls=true
+      - traefik.http.services.homepage.loadbalancer.server.port=3000 # Default Homepage port
 networks:
   proxy:
     external: true

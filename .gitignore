@@ -3,6 +3,9 @@
 .env.local
 .env.*.local
 
+# data volumes
+data/
+
 # Docker Compose overrides
 docker-compose.override.yml
 docker-compose.*.yml

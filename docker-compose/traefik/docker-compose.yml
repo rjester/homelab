@@ -47,12 +47,12 @@ services:
 
       # HTTP router (redirect to HTTPS)
       - "traefik.http.routers.tm.entrypoints=http"
-      - "traefik.http.routers.tm.rule=Host(`traefik-manager.local.solemnorangutan.com`)"
+      - "traefik.http.routers.tm.rule=Host(`traefik-manager.rjester.us`)"
       - "traefik.http.routers.tm.middlewares=https-redirectscheme@file"
 
       # HTTPS router
       - "traefik.http.routers.tm-secure.entrypoints=https"
-      - "traefik.http.routers.tm-secure.rule=Host(`traefik-manager.local.solemnorangutan.com`)"
+      - "traefik.http.routers.tm-secure.rule=Host(`traefik-manager.rjester.us`)"
       - "traefik.http.routers.tm-secure.tls=true"
       - "traefik.http.routers.tm-secure.tls.certresolver=cloudflare"
       - "traefik.http.routers.tm-secure.service=tm"

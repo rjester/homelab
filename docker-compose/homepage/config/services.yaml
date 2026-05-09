@@ -14,6 +14,17 @@
             env: 2
             key: "ptr_dD4xPrg92i/4yxviOJNDVQbHG3kKX80qKtEKL10Xml0="
         #api key: ptr_dD4xPrg92i/4yxviOJNDVQbHG3kKX80qKtEKL10Xml0=
+    - Dockhand:
+        icon: dockhand.svg
+        #href: "{{HOMEPAGE_VAR_PORTAINER_URL}}"
+        href: "https://dockhand.rjester.us"
+        description: docker monitoring
+        widget:
+            type: dockhand
+            url: https://dockhand.rjester.us
+            environment: local # optional: name or id; aggregates all when omitted
+            #username: your-user # required for local auth
+            #password: your-pass # required for local auth
 - arr:
     - Radarr:
         icon: radarr.svg

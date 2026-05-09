@@ -9,7 +9,7 @@ http:
         - https
       rule: "Host(`traefik-dashboard.local.solemnorangutan.com`)"
       middlewares:
-        - default-headers
+        - secured
         - auth
       tls: {}
       service: api@internal
@@ -22,8 +22,7 @@ http:
       entryPoints: [https]
       rule: "Host(`portainer.local.solemnorangutan.com`) || Host(`portainer.local.russjester.com`) || Host(`portainer.rjester.us`)"
       middlewares:
-        - default-headers
-        - https-redirectscheme
+        - secured
       tls: {}
       service: portainer
 
@@ -31,8 +30,7 @@ http:
       entryPoints: [https]
       rule: "Host(`adguard-primary.local.solemnorangutan.com`) || Host(`adguard-primary.local.russjester.com`) || Host(`adguard-primary.rjester.us`)"
       middlewares:
-        - default-headers
-        - https-redirectscheme
+        - secured
       tls: {}
       service: adguard-primary
 
@@ -40,8 +38,7 @@ http:
       entryPoints: [https]
       rule: "Host(`adguard-secondary.local.solemnorangutan.com`) || Host(`adguard-secondary.local.russjester.com`) || Host(`adguard-secondary.rjester.us`)"
       middlewares:
-        - default-headers
-        - https-redirectscheme
+        - secured
       tls: {}
       service: adguard-secondary
 
@@ -49,8 +46,7 @@ http:
       entryPoints: [https]
       rule: "Host(`homeassistant.local.solemnorangutan.com`) || Host(`homeassistant.local.russjester.com`) || Host(`homeassistant.rjester.us`)"
       middlewares:
-        - default-headers
-        - https-redirectscheme
+        - secured
       tls: {}
       service: homeassistant
 
@@ -58,8 +54,7 @@ http:
       entryPoints: [https]
       rule: "Host(`media.local.solemnorangutan.com`) || Host(`media.local.russjester.com`) || Host(`media.rjester.us`)"
       middlewares:
-        - default-headers
-        - https-redirectscheme
+        - secured
       tls: {}
       service: jellyfin
 
@@ -67,8 +62,7 @@ http:
       entryPoints: [https]
       rule: "Host(`home.local.solemnorangutan.com`) || Host(`home.local.russjester.com`) || Host(`home.rjester.us`)"
       middlewares:
-        - default-headers
-        - https-redirectscheme
+        - secured
       tls: {}
       service: homepage
 

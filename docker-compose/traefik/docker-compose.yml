@@ -24,9 +24,9 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /docker/traefik/data/traefik.yml:/traefik.yml:ro
-      - ./data:/config
-      - /docker/traefik/data/acme.json:/acme.json
+      - ./config/traefik.yml:/traefik.yml:ro
+      - ./config:/config:ro
+      - ./data/acme.json:/acme.json
 
   traefik-manager:
     image: ghcr.io/chr0nzz/traefik-manager:latest

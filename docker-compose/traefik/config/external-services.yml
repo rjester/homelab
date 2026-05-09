@@ -67,9 +67,9 @@ http:
       service: homepage
 
   services:
-
     portainer:
       loadBalancer:
+        serversTransport: portainer-transport
         servers:
           - url: "https://192.168.0.125:9443"
         passHostHeader: true
@@ -103,62 +103,3 @@ http:
         servers:
           - url: "http://192.168.0.125:8089"
         passHostHeader: true
-
-  middlewares:
-
-    # -----------------------
-    # Auth (used for dashboard)
-    # -----------------------
-    auth:
-      basicAuth:
-        users:
-          - "admin:$$2y$05$5YIS7dg1YaGgiMuskw3AMuHou/.9aCNXLqlZXCT8JQXPdYaUtASna"
-
-    # -----------------------
-    # Redirect HTTP -> HTTPS
-    # -----------------------
-    https-redirectscheme:
-      redirectScheme:
-        scheme: https
-        permanent: true
-
-    # -----------------------
-    # Security Headers
-    # -----------------------
-    default-headers:
-      headers:
-        frameDeny: true
-        browserXssFilter: true
-        contentTypeNosniff: true
-        forceSTSHeader: true
-        stsIncludeSubdomains: true
-        stsPreload: true
-        stsSeconds: 15552000
-        customFrameOptionsValue: SAMEORIGIN
-        customRequestHeaders:
-          X-Forwarded-Proto: https
-
-    # -----------------------
-    # Optional (kept from your config)
-    # -----------------------
-    addprefix-pihole:
-      addPrefix:
-        prefix: "/admin"
-
-    redirectregex-pihole:
-      redirectRegex:
-        regex: "/admin/(.*)"
-        replacement: /
-
-    default-whitelist:
-      ipAllowList:
-        sourceRange:
-          - "10.0.0.0/8"
-          - "172.16.0.0/12"
-          - "192.168.0.0/16"
-
-    secured:
-      chain:
-        middlewares:
-          - default-whitelist
-          - default-headers

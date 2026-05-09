@@ -39,7 +39,8 @@ services:
       - proxy
 
     environment:
-      TRAEFIK_MANAGER_TRAEFIK_URL: http://traefik1:8080
+      COOKIE_SECURE: "true"
+      TRAEFIK_API_URL: http://traefik1:8080
 
     labels:
       - "traefik.enable=true"
@@ -58,7 +59,7 @@ services:
       - "traefik.http.routers.tm-secure.service=tm"
 
       # Service port
-      - "traefik.http.services.tm.loadbalancer.server.port=8080"
+      - "traefik.http.services.tm.loadbalancer.server.port=5000"
 
 secrets:
   cf_api_token:

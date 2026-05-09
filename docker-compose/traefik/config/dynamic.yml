@@ -81,14 +81,12 @@ http:
         passHostHeader: true
 
     adguard-primary:
-      rule: "Host(`adguard-primary.rjester.us`)"
       loadBalancer:
         servers:
           - url: "http://192.168.0.74"
         passHostHeader: true
 
     adguard-secondary:
-      rule: "Host(`adguard-secondary.rjester.us`)"
       loadBalancer:
         servers:
           - url: "http://192.168.0.211"

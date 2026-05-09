@@ -15,7 +15,7 @@
             key: "ptr_dD4xPrg92i/4yxviOJNDVQbHG3kKX80qKtEKL10Xml0="
         #api key: ptr_dD4xPrg92i/4yxviOJNDVQbHG3kKX80qKtEKL10Xml0=
     - Dockhand:
-        icon: dockhand.svg
+        icon: docker.svg
         #href: "{{HOMEPAGE_VAR_PORTAINER_URL}}"
         href: "https://dockhand.rjester.us"
         description: docker monitoring

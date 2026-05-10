@@ -37,10 +37,18 @@ services:
 
     networks:
       - proxy
+      - socket-proxy-net
+
+    volumes:
+      - ./config/traefik.yml:/traefik.yml
 
     environment:
-      COOKIE_SECURE: "true"
-      TRAEFIK_API_URL: http://traefik1:8080
+      - COOKIE_SECURE: "true"
+      - TRAEFIK_API_URL: http://traefik1:8080
+      - STATIC_CONFIG_PATH: /app/traefik.yml
+      - RESTART_METHOD: proxy
+      - TRAEFIK_CONTAINER: traefik1
+      - DOCKER_HOST:tcp://socket-proxy:2375
 
     labels:
       - "traefik.enable=true"
@@ -61,6 +69,17 @@ services:
       # Service port
       - "traefik.http.services.tm.loadbalancer.server.port=5000"
 
+  socket-proxy:
+    image: tecnativa/docker-socket-proxy
+    restart: unless-stopped
+    environment:
+      CONTAINERS: 1
+      POST: 1
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - socket-proxy-net
+
 secrets:
   cf_api_token:
     file: ./secrets/cf_api_token.txt
@@ -68,3 +87,5 @@ secrets:
 networks:
   proxy:
     external: true
+  socket-proxy-net:
+    internal: true

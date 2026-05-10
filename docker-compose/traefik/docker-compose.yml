@@ -48,7 +48,7 @@ services:
       - STATIC_CONFIG_PATH: /app/traefik.yml
       - RESTART_METHOD: proxy
       - TRAEFIK_CONTAINER: traefik1
-      - DOCKER_HOST:tcp://socket-proxy:2375
+      - DOCKER_HOST: tcp://socket-proxy:2375
 
     labels:
       - "traefik.enable=true"

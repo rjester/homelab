@@ -40,15 +40,15 @@ services:
       - socket-proxy-net
 
     volumes:
-      - ./config/traefik.yml:/traefik.yml
+      - ./config/traefik.yml:/app/traefik.yml
 
     environment:
-      - COOKIE_SECURE: "true"
-      - TRAEFIK_API_URL: http://traefik1:8080
-      - STATIC_CONFIG_PATH: /app/traefik.yml
-      - RESTART_METHOD: proxy
-      - TRAEFIK_CONTAINER: traefik1
-      - DOCKER_HOST: tcp://socket-proxy:2375
+      COOKIE_SECURE: "true"
+      TRAEFIK_API_URL: http://traefik1:8080
+      STATIC_CONFIG_PATH: /app/traefik.yml
+      RESTART_METHOD: proxy
+      TRAEFIK_CONTAINER: traefik1
+      DOCKER_HOST: tcp://socket-proxy:2375
 
     labels:
       - "traefik.enable=true"

@@ -1,0 +1,27 @@
+services:
+  # LLM Backend: Ollama (CPU Optimized)
+    llm-backend:
+        image: ollama/ollama:latest
+            container_name: qwen-cpu-backend
+                volumes:
+                      - ollama_data:/root/.ollama
+                          ports:
+                                - "11434:11434"
+                                    # No "deploy" or "nvidia" section here for CPU-only mode
+
+                                      # OpenCode Agent
+                                        opencode:
+                                            image: gtp95/qwen-code:latest
+                                                depends_on:
+                                                      - llm-backend
+                                                          environment:
+                                                                - OPENAI_BASE_URL=http://llm-backend:11434/v1
+                                                                      - API_KEY=local-only
+                                                                          volumes:
+                                                                                - ./your-project:/workspace
+                                                                                    working_dir: /workspace
+                                                                                        stdin_open: true
+                                                                                            tty: true
+
+                                                                                            volumes:
+                                                                                              ollama_data:

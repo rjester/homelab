@@ -42,3 +42,5 @@ __pycache__/
 # Docker
 .dockerignore
 docker-compose.dev.yml
+docker-compose/**/secrets/*.txt
+docker-compose/**/data/acme.json

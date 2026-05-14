@@ -1,0 +1,9 @@
+models:
+  default:
+    provider: ollama
+    model: NeuralNet/opencoder:8b
+
+providers:
+  ollama:
+    type: ollama
+    base_url: http://ollama:11434

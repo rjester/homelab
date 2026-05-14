@@ -42,9 +42,15 @@ services:
       - OPENAI_BASE_URL=http://ollama:11434/v1
       - OPENAI_API_KEY=dummy
       - OPENAI_MODEL=devstral
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - OPENCODE_HOST=0.0.0.0
+      - OPENCODE_PORT=4096
 
     stdin_open: true
     tty: true
+
+    volumes:
+      - ./opencode/config.yml:/app/config.yaml
 
     labels:
       - traefik.enable=true

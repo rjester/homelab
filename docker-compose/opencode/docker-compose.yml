@@ -56,6 +56,44 @@ services:
       # Internal container port
       - traefik.http.services.opencode.loadbalancer.server.port=3000
 
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: open-webui
+    restart: unless-stopped
+
+    depends_on:
+      - ollama
+
+    networks:
+      - proxy
+
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434
+
+      # Optional
+      - WEBUI_AUTH=True
+      - ENABLE_SIGNUP=False
+
+    volumes:
+      - ./open-webui:/app/backend/data
+
+    # Optional direct access
+    ports:
+      - "3001:8080"
+
+    labels:
+      - traefik.enable=true
+
+      # Router
+      - traefik.http.routers.openwebui.rule=Host(`ai.rjester.us`)
+      - traefik.http.routers.openwebui.entrypoints=https
+
+      # Service
+      - traefik.http.services.openwebui.loadbalancer.server.port=8080
+
+      # Optional middleware
+      #- traefik.http.routers.openwebui.middlewares=local-ipallowlist@file
+
 networks:
   proxy:
     external: true

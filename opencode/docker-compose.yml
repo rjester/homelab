@@ -1,0 +1,61 @@
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    restart: unless-stopped
+
+    networks:
+      - proxy
+
+    volumes:
+      - ./ollama:/root/.ollama
+
+    # Optional direct access
+    ports:
+      - "11434:11434"
+
+    labels:
+      - traefik.enable=true
+
+      # Router
+      - traefik.http.routers.ollama.rule=Host(`ollama.rjester.us`)
+      - traefik.http.routers.ollama.entrypoints=https
+
+      # Service
+      - traefik.http.services.ollama.loadbalancer.server.port=11434
+
+      # Optional middleware
+      #- traefik.http.routers.ollama.middlewares=local-ipallowlist@file
+
+  opencode:
+    image: ghcr.io/sst/opencode:latest
+    container_name: opencode
+    restart: unless-stopped
+
+    depends_on:
+      - ollama
+
+    networks:
+      - proxy
+
+    environment:
+      - OPENAI_BASE_URL=http://ollama:11434/v1
+      - OPENAI_API_KEY=dummy
+      - OPENAI_MODEL=devstral
+
+    stdin_open: true
+    tty: true
+
+    labels:
+      - traefik.enable=true
+
+      # Router
+      - traefik.http.routers.opencode.rule=Host(`opencode.rjester.us`)
+      - traefik.http.routers.opencode.entrypoints=https
+
+      # Internal container port
+      - traefik.http.services.opencode.loadbalancer.server.port=3000
+
+networks:
+  proxy:
+    external: true

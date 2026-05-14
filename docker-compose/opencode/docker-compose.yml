@@ -28,7 +28,7 @@ services:
       #- traefik.http.routers.ollama.middlewares=local-ipallowlist@file
 
   opencode:
-    image: ghcr.io/sst/opencode:latest
+    image: ghcr.io/anomalyco/opencode:latest
     container_name: opencode
     restart: unless-stopped
 

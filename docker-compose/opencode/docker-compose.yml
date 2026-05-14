@@ -73,6 +73,7 @@ services:
       # Optional
       - WEBUI_AUTH=True
       - ENABLE_SIGNUP=False
+      - WEBUI_SECRET_KEY=64741ec858e595a6db7dbb6ef4fdca6b42cd0d55687b313ad7249d74dcf23186
 
     volumes:
       - ./open-webui:/app/backend/data

@@ -3,3 +3,4 @@ model_list:
     litellm_params:
       model: ollama/NeuralNet/opencoder:8b
       api_base: http://ollama:11434
+      api_key: dummy

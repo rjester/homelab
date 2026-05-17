@@ -106,7 +106,7 @@ services:
       #- traefik.http.routers.openwebui.middlewares=local-ipallowlist@file
 
   litellm:
-    image: ghcr.io/berriai/litellm:stable-v1.40.14
+    image: litellm/litellm:main-stable
     container_name: litellm
     restart: unless-stopped
 

@@ -106,35 +106,35 @@ services:
       #- traefik.http.routers.openwebui.middlewares=local-ipallowlist@file
 
   litellm:
-  image: ghcr.io/berriai/litellm:main
-  container_name: litellm
-  restart: unless-stopped
+    image: ghcr.io/berriai/litellm:stable-v1.40.14
+    container_name: litellm
+    restart: unless-stopped
 
-  entrypoint: ["litellm"]
+    entrypoint: ["litellm"]
 
-  command:
-    - "--config"
-    - "/app/config.yaml"
-    - "--port"
-    - "4000"
+    command:
+      - "--config"
+      - "/app/config.yaml"
+      - "--port"
+      - "4000"
 
-  volumes:
-    - ./litellm/config.yaml:/app/config.yaml:ro
+    volumes:
+      - ./litellm/config.yaml:/app/config.yaml:ro
 
-  ports:
-    - "4000:4000"
+    ports:
+      - "4000:4000"
 
-  depends_on:
-    - ollama
+    depends_on:
+      - ollama
 
-  networks:
-    - proxy
+    networks:
+      - proxy
 
-  labels:
-    - traefik.enable=true
-    - traefik.http.routers.litellm.rule=Host(`llm.rjester.us`)
-    - traefik.http.routers.litellm.entrypoints=https
-    - traefik.http.services.litellm.loadbalancer.server.port=4000
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.litellm.rule=Host(`llm.rjester.us`)
+      - traefik.http.routers.litellm.entrypoints=https
+      - traefik.http.services.litellm.loadbalancer.server.port=4000
 
 networks:
   proxy:

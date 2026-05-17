@@ -1,0 +1,5 @@
+model_list:
+  - model_name: claude-code
+    litellm_params:
+      model: ollama/NeuralNet/opencoder:8b
+      api_base: http://ollama:11434

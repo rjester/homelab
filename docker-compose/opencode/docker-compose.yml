@@ -110,6 +110,12 @@ services:
     container_name: litellm
     restart: unless-stopped
 
+    depends_on:
+      - ollama
+
+    ports:
+      - "4000:4000"
+
     networks:
       - proxy
 

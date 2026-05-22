@@ -35,6 +35,7 @@ services:
     restart: unless-stopped
     labels:
       - traefik.enable=true
+      - traefik.http.routers.myapp.tls.certresolver=cloudflare
       - traefik.http.routers.homepage.rule=Host(`home.rjester.us`)
       - traefik.http.routers.homepage.entrypoints=https
       - traefik.http.routers.homepage.tls=true

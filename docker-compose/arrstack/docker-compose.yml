@@ -322,6 +322,7 @@ services:
      - traefik.http.routers.seerr.rule=Host(`seerr.rjester.us`)
      - traefik.http.routers.seerr.entrypoints=https
      - traefik.http.routers.seerr.tls=true
+     - traefik.http.routers.seerr.tls.certresolver=cloudflare
      - traefik.http.services.seerr.loadbalancer.server.port=5055
      - traefik.docker.network=proxy
 

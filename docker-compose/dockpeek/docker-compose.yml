@@ -20,5 +20,6 @@ services:
      - traefik.http.routers.dockpeek.rule=Host(`dockpeek.rjester.us`)
      - traefik.http.routers.dockpeek.entrypoints=https
      - traefik.http.routers.dockpeek.tls=true
+     - traefik.http.routers.dockpeek.tls.certresolver=cloudflare
     networks:
       - proxy

@@ -26,21 +26,21 @@ http:
       tls: {}
       service: portainer
 
-    adguard-primary:
-      entryPoints: [https]
-      rule: "Host(`adguard-primary.local.solemnorangutan.com`) || Host(`adguard-primary.local.russjester.com`) || Host(`adguard-primary.rjester.us`)"
-      middlewares:
-        - secured
-      tls: {}
-      service: adguard-primary
+    # adguard-primary:
+    #   entryPoints: [https]
+    #   rule: "Host(`adguard-primary.local.solemnorangutan.com`) || Host(`adguard-primary.local.russjester.com`) || Host(`adguard-primary.rjester.us`)"
+    #   middlewares:
+    #     - secured
+    #   tls: {}
+    #   service: adguard-primary
 
-    adguard-secondary:
-      entryPoints: [https]
-      rule: "Host(`adguard-secondary.local.solemnorangutan.com`) || Host(`adguard-secondary.local.russjester.com`) || Host(`adguard-secondary.rjester.us`)"
-      middlewares:
-        - secured
-      tls: {}
-      service: adguard-secondary
+    # adguard-secondary:
+    #   entryPoints: [https]
+    #   rule: "Host(`adguard-secondary.local.solemnorangutan.com`) || Host(`adguard-secondary.local.russjester.com`) || Host(`adguard-secondary.rjester.us`)"
+    #   middlewares:
+    #     - secured
+    #   tls: {}
+    #   service: adguard-secondary
 
     homeassistant:
       entryPoints: [https]
@@ -58,13 +58,13 @@ http:
       tls: {}
       service: jellyfin
 
-    homepage:
-      entryPoints: [https]
-      rule: "Host(`home.local.solemnorangutan.com`) || Host(`home.local.russjester.com`) || Host(`home.rjester.us`)"
-      middlewares:
-        - secured
-      tls: {}
-      service: homepage
+    # homepage:
+    #   entryPoints: [https]
+    #   rule: "Host(`home.local.solemnorangutan.com`) || Host(`home.local.russjester.com`) || Host(`home.rjester.us`)"
+    #   middlewares:
+    #     - secured
+    #   tls: {}
+    #   service: homepage
 
   services:
     portainer:
@@ -74,17 +74,17 @@ http:
           - url: "https://192.168.0.125:9443"
         passHostHeader: true
 
-    adguard-primary:
-      loadBalancer:
-        servers:
-          - url: "http://192.168.0.74"
-        passHostHeader: true
+    # adguard-primary:
+    #   loadBalancer:
+    #     servers:
+    #       - url: "http://192.168.0.74"
+    #     passHostHeader: true
 
-    adguard-secondary:
-      loadBalancer:
-        servers:
-          - url: "http://192.168.0.211"
-        passHostHeader: true
+    # adguard-secondary:
+    #   loadBalancer:
+    #     servers:
+    #       - url: "http://192.168.0.211"
+    #     passHostHeader: true
 
     homeassistant:
       loadBalancer:
@@ -98,8 +98,8 @@ http:
           - url: "http://192.168.0.125:8096"
         passHostHeader: true
 
-    homepage:
-      loadBalancer:
-        servers:
-          - url: "http://192.168.0.125:8089"
-        passHostHeader: true
+    # homepage:
+    #   loadBalancer:
+    #     servers:
+    #       - url: "http://192.168.0.125:8089"
+    #     passHostHeader: true

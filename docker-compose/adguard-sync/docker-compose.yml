@@ -16,7 +16,7 @@ services:
       - traefik.http.routers.adguard-sync.entrypoints=https
       - traefik.http.routers.adguard-sync.tls=true
       - traefik.http.routers.adguard-sync.tls.certresolver=cloudflare
-      - traefik.http.services.adguard-sync.loadbalancer.server.port=8090
+      - traefik.http.services.adguard-sync.loadbalancer.server.port=8080
 networks:
   proxy:
     external: true

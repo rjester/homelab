@@ -1,0 +1,22 @@
+services:
+  adguardhome-sync:
+    image: ghcr.io/bakito/adguardhome-sync
+    container_name: adguardhome-sync
+    command: run --config /config/adguardhome-sync.yaml
+    volumes:
+      - /docker/adguard-sync/config/adguardhome-sync.yaml:/config/adguardhome-sync.yaml
+    networks:
+      - proxy
+    ports:
+      - 8090:8080
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.adguard-sync.rule=Host(`adguard-sync.rjester.us`)
+      - traefik.http.routers.adguard-sync.entrypoints=https
+      - traefik.http.routers.adguard-sync.tls=true
+      - traefik.http.routers.adguard-sync.tls.certresolver=cloudflare
+      - traefik.http.services.adguard-sync.loadbalancer.server.port=8090
+networks:
+  proxy:
+    external: true

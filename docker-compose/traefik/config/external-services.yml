@@ -32,6 +32,10 @@ http:
       middlewares:
         - secured
       tls: 
+        domains:
+          - main: rjester.us
+            sans:
+              - "*.rjester.us"
         certResolver: cloudflare
       service: adguard-primary
 

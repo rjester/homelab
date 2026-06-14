@@ -10,8 +10,6 @@ services:
       - SECRET_KEY=${SECRET_KEY}    # Required: Set a secure secret key
       - USERNAME=${USER}                       # username
       - PASSWORD=${PASSWORD}             # password
-    env_file:
-      - .env
     ports:
       - "3420:8000"
     volumes:

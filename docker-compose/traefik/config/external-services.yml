@@ -69,13 +69,13 @@ http:
     adguard-primary:
       loadBalancer:
         servers:
-          - url: "http://192.168.0.74"
+          - url: "http://192.168.0.74:80"
         passHostHeader: true
 
     adguard-secondary:
       loadBalancer:
         servers:
-          - url: "http://192.168.0.211"
+          - url: "http://192.168.0.211:80"
         passHostHeader: true
 
     homeassistant:

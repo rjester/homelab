@@ -49,7 +49,7 @@ http:
 
     homeassistant:
       entryPoints: [https]
-      rule: "Host(`homeassistant.local.solemnorangutan.com`) || Host(`homeassistant.local.russjester.com`) || Host(`homeassistant.rjester.us`)"
+      rule: "Host(`homeassistant.rjester.us`)"
       middlewares:
         - secured
       tls: 

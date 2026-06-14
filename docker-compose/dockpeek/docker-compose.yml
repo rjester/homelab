@@ -8,8 +8,8 @@ services:
     container_name: dockpeek
     environment:
       - SECRET_KEY=${SECRET_KEY}    # Required: Set a secure secret key
-      - USERNAME=${USER}                       # username
-      - PASSWORD=${PASSWORD}             # password
+      - USERNAME=${USER:-admin}     # fallback to admin if not set
+      - PASSWORD=${PASSWORD}        # password
     ports:
       - "3420:8000"
     volumes:

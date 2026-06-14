@@ -31,7 +31,7 @@ certificatesResolvers:
   cloudflare:
     acme:
       email: rjester@gmail.com
-      storage: acme.json
+      storage: /acme.json
       dnsChallenge:
         provider: cloudflare
 

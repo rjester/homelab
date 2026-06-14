@@ -5,7 +5,7 @@ services:
         ports:
             - '9618:9618'
         environment:
-            - 'ADGUARD_PASSWORDS=$PASSWORD1,$PASSWORD2'
-            - 'ADGUARD_USERNAMES=$USERNAME1,$USERNAME2'
-            - 'ADGUARD_SERVERS=http://192.168.0.74,http://192.168.0.211'
+            - ADGUARD_PASSWORDS=${ADGUARD_PASSWORDS}
+            - ADGUARD_USERNAMES=${ADGUARD_USERNAMES}
+            - ADGUARD_SERVERS=${ADGUARD_SERVERS}
         restart: unless-stopped

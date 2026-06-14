@@ -5,7 +5,6 @@
 - Containers:
     - Portainer:
         icon: portainer.svg
-        #href: "{{HOMEPAGE_VAR_PORTAINER_URL}}"
         href: "https://portainer.local.russjester.com"
         description: docker
         widget:
@@ -13,7 +12,6 @@
             url: "https://portainer.local.russjester.com"
             env: 2
             key: "ptr_dD4xPrg92i/4yxviOJNDVQbHG3kKX80qKtEKL10Xml0="
-        #api key: ptr_dD4xPrg92i/4yxviOJNDVQbHG3kKX80qKtEKL10Xml0=
     - Dockhand:
         icon: docker.svg
         #href: "{{HOMEPAGE_VAR_PORTAINER_URL}}"
@@ -25,6 +23,11 @@
             #environment: local # optional: name or id; aggregates all when omitted
             #username: your-user # required for local auth
             #password: your-pass # required for local auth
+    - Dockpeek:
+        icon: docker.svg
+        #href: "{{HOMEPAGE_VAR_PORTAINER_URL}}"
+        href: "https://dockpeek.rjester.us"
+        description: docker information
 - arr:
     - Radarr:
         icon: radarr.svg
@@ -91,19 +94,6 @@
         server: my-docker
         container: audiobookshelf-audiobookshelf-1
 - Network:
-    # - Adguard-Primary:
-    #     icon: adguard-home.svg
-    #     #href: "{{HOMEPAGE_VAR_PORTAINER_URL}}"
-    #     href: "https://adguard.local.russjester.com"
-    #     description: Ad Blocker
-    #     server: my-docker
-    #     container: adguard
-    #     widget:
-    #         type: adguard
-    #         url: https://adguard.local.russjester.com
-    #         fields: ["queries", "blocked", "filtered", "latency"]
-    #         username: rjester
-    #         password: mtgb%iCG7Y9&JLYy
     - Adguard-Primary:
         icon: adguard-home.svg
         href: "https://adguard-primary.rjester.us"

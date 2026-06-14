@@ -121,11 +121,11 @@
     - Traefik:
         icon: traefik.svg
         #href: "{{HOMEPAGE_VAR_PORTAINER_URL}}"
-        href: "https://traefik-dashboard.local.solemnorangutan.com/"
+        href: "https://traefik-dashboard.rjester.us/"
         description: Proxy
         widget:
             type: traefik
-            url: "http://traefik:8080"
+            url: "http://traefik1:8080"
             username: admin # optional
             password: d0pp3lg4ng3r # optional
     - Webmin:

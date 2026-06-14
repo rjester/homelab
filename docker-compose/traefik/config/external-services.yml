@@ -63,6 +63,19 @@ http:
       tls: {}
       service: jellyfin
 
+    webmin:
+      entryPoints: [https]
+      rule: "Host(`webmin.rjester.us`)"
+      middlewares:
+        - secured
+      tls: 
+        domains:
+          - main: rjester.us
+            sans:
+              - "*.rjester.us"
+        certResolver: cloudflare
+      service: webmin
+
   services:
     portainer:
       loadBalancer:
@@ -95,3 +108,8 @@ http:
           - url: "http://192.168.0.125:8096"
         passHostHeader: true
 
+    webmin:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.0.125:100000"
+        passHostHeader: true

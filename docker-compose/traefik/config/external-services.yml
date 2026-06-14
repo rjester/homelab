@@ -29,8 +29,8 @@ http:
     adguard-primary:
       entryPoints: [https]
       rule: "Host(`adguard-primary.rjester.us`)"
-      middlewares:
-        - secured
+      #middlewares:
+      #  - secured
       tls: {}
       service: adguard-primary
 

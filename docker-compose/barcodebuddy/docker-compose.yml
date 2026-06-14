@@ -22,4 +22,5 @@ services:
       - traefik.http.routers.barcodebuddy.rule=Host(`barcodebuddy.rjester.us`)
       - traefik.http.routers.barcodebuddy.entrypoints=https
       - traefik.http.routers.barcodebuddy.tls=true
-      - traefik.http.services.barcodebuddy.loadbalancer.server.port=8099
+      - traefik.http.routers.barcodebuddy.tls.certresolver=cloudflare
+      - traefik.http.services.barcodebuddy.loadbalancer.server.port=8098

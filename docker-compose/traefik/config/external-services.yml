@@ -52,7 +52,12 @@ http:
       rule: "Host(`homeassistant.local.solemnorangutan.com`) || Host(`homeassistant.local.russjester.com`) || Host(`homeassistant.rjester.us`)"
       middlewares:
         - secured
-      tls: {}
+      tls: 
+        domains:
+          - main: rjester.us
+            sans:
+              - "*.rjester.us"
+        certResolver: cloudflare
       service: homeassistant
 
     jellyfin:

@@ -136,7 +136,7 @@
 - Home Automation:
     - Home Assistant:
         icon: home-assistant.svg
-        href: "https://hass.local.russjester.com"
+        href: "https://homeassistant.rjester.us"
         description: home
         widget:
             type: homeassistant

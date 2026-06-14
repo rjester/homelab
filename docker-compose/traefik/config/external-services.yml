@@ -7,7 +7,7 @@ http:
     traefik-dashboard:
       entryPoints:
         - https
-      rule: "Host(`traefik-dashboard.local.solemnorangutan.com`)"
+      rule: "Host(`traefik-dashboard.local.solemnorangutan.com`) || Host(`traefik-dashboard.rjester.us`)"
       middlewares:
         - secured
         - auth
@@ -28,7 +28,7 @@ http:
 
     adguard-primary:
       entryPoints: [https]
-      rule: "Host(`adguard-primary.local.solemnorangutan.com`) || Host(`adguard-primary.local.russjester.com`) || Host(`adguard-primary.rjester.us`)"
+      rule: "Host(`adguard-primary.rjester.us`)"
       middlewares:
         - secured
       tls: {}
@@ -36,7 +36,7 @@ http:
 
     adguard-secondary:
       entryPoints: [https]
-      rule: "Host(`adguard-secondary.local.solemnorangutan.com`) || Host(`adguard-secondary.local.russjester.com`) || Host(`adguard-secondary.rjester.us`)"
+      rule: "Host(`adguard-secondary.rjester.us`)"
       middlewares:
         - secured
       tls: {}

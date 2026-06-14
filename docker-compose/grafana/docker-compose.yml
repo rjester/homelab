@@ -4,6 +4,8 @@ services:
   grafana:
     image: grafana/grafana-enterprise
     container_name: grafana
+    ports:
+      - "3001:3000" 
     networks:
       - proxy
     volumes:
@@ -26,6 +28,7 @@ services:
      - traefik.http.routers.grafana.rule=Host(`grafana.rjester.us`)
      - traefik.http.routers.grafana.entrypoints=https
      - traefik.http.routers.grafana.tls=true
+     - traefik.http.routers.grafana.tls.certresolver=cloudflare
      - traefik.http.services.grafana.loadbalancer.server.port=3000
      - traefik.docker.network=proxy
 networks:

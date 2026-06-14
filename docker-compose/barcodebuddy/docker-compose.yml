@@ -14,6 +14,8 @@ services:
       # - BBUDDY_REDIS_ENABLED=true
       # - BBUDDY_REDIS_HOST=redis
       # - BBUDDY_REDIS_PORT=6379
+    networks:
+      - proxy
     volumes:
       - /docker/barcodebuddy/data/barcodebuddy:/var/www/html/barcodebuddy/data # Persist data (e.g., database)
     restart: unless-stopped
@@ -24,3 +26,6 @@ services:
       - traefik.http.routers.barcodebuddy.tls=true
       - traefik.http.routers.barcodebuddy.tls.certresolver=cloudflare
       - traefik.http.services.barcodebuddy.loadbalancer.server.port=8098
+networks:
+  proxy:
+    external: true      

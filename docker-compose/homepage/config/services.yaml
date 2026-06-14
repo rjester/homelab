@@ -131,7 +131,7 @@
     - Webmin:
         icon: webmin.svg
         #href: "{{HOMEPAGE_VAR_PORTAINER_URL}}"
-        href: "http://192.168.0.125:100000"
+        href: "https://webmin.rjester.us"
         description: Webmin
 - Home Automation:
     - Home Assistant:

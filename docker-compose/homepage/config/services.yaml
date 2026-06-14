@@ -24,7 +24,7 @@
             #username: your-user # required for local auth
             #password: your-pass # required for local auth
     - Dockpeek:
-        icon: docker.svg
+        icon: dockpeek.svg
         #href: "{{HOMEPAGE_VAR_PORTAINER_URL}}"
         href: "https://dockpeek.rjester.us"
         description: docker information

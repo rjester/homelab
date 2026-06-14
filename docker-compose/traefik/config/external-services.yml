@@ -111,5 +111,5 @@ http:
     webmin:
       loadBalancer:
         servers:
-          - url: "http://192.168.0.125:100000"
+          - url: "http://192.168.0.125:10000"
         passHostHeader: true

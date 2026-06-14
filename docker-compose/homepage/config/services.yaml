@@ -128,12 +128,6 @@
         icon: adguard-home.svg
         href: "https://adguard-sync.rjester.us"
         description: AdGuard Sync
-        widget:
-            type: adguard
-            url: "http://192.168.0.125:8090"
-            fields: ["queries", "blocked", "filtered", "latency"]
-            username: adguard
-            password: d0pp3lg4ng3r
     - Traefik:
         icon: traefik.svg
         #href: "{{HOMEPAGE_VAR_PORTAINER_URL}}"

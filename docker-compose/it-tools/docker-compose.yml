@@ -10,7 +10,7 @@ services:
     labels:
       - homepage.group=Other
       - homepage.name=IT-Tools
-      - homepage.icon=prometheus.png
+      - homepage.icon=it-tools.svg
       - homepage.href=https://it-tools.rjester.us/
       - homepage.description=IT-Tools
       - homepage.server=my-docker

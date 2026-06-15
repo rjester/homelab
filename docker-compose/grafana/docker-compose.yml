@@ -28,6 +28,7 @@ services:
      - homepage.widget.url=https://grafana.rjester.us
      - homepage.widget.username=admin
      - homepage.widget.password=d0pp3lg4ng3r
+     - homepage.widget.version=2
      - traefik.enable=true
      - traefik.http.routers.grafana.rule=Host(`grafana.rjester.us`)
      - traefik.http.routers.grafana.entrypoints=https

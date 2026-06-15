@@ -8,6 +8,13 @@ services:
       - '8088:80' # required for access when traefik is down, optional otherwise
     image: 'corentinth/it-tools:latest'
     labels:
+      - homepage.group=Other
+      - homepage.name=IT-Tools
+      - homepage.icon=prometheus.png
+      - homepage.href=https://it-tools.rjester.us/
+      - homepage.description=IT-Tools
+      - homepage.server=my-docker
+      - homepage.container=it-tools
       - traefik.enable=true
       - traefik.http.routers.it-tools.rule=Host(`it-tools.rjester.us`)
       - traefik.http.routers.it-tools.entrypoints=https

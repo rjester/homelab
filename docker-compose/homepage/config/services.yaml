@@ -118,6 +118,8 @@
         icon: adguard-home.svg
         href: "https://adguard-sync.rjester.us"
         description: AdGuard Sync
+        server: my-docker
+        container: adguard-sync
     - Traefik:
         icon: traefik.svg
         #href: "{{HOMEPAGE_VAR_PORTAINER_URL}}"
@@ -143,12 +145,6 @@
             url: "http://192.168.0.230:8123/"
             key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiI5NWIxYzhkODNkNTY0MzVhYjJhMDVjODlmYTk0MDY2YiIsImlhdCI6MTc0MDY4ODQ4MywiZXhwIjoyMDU2MDQ4NDgzfQ.UTiGMw8cWVtQYgYMAui0Hmd_zyGpjUQYPxedHqtQuFc"
 - Other:
-    - IT-Tools:
-        icon: it-tools.svg
-        href: "https://it-tools.rjester.us"
-        description: IT-Tools
-        server: my-docker
-        container: it-tools
     - Mealie:
         icon: mealie.svg
         #href: "{{HOMEPAGE_VAR_PORTAINER_URL}}"

@@ -121,7 +121,7 @@
         href: "https://adguard-sync.rjester.us"
         description: AdGuard Sync
         server: my-docker
-        container: adguard-sync
+        container: adguardhome-sync
     - Traefik:
         icon: traefik.svg
         #href: "{{HOMEPAGE_VAR_PORTAINER_URL}}"

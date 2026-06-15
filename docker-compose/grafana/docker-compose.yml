@@ -24,6 +24,10 @@ services:
      - homepage.icon=grafana.png
      - homepage.href=https://grafana.rjester.us/
      - homepage.description=Grafana
+     - homepage.widget.type=grafana
+     - homepage.widget.url=https://grafana.rjester.us
+     - homepage.widget.username=admin
+     - homepage.widget.password=d0pp3lg4ng3r
      - traefik.enable=true
      - traefik.http.routers.grafana.rule=Host(`grafana.rjester.us`)
      - traefik.http.routers.grafana.entrypoints=https

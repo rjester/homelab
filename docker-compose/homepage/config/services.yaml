@@ -133,14 +133,6 @@
         #href: "{{HOMEPAGE_VAR_PORTAINER_URL}}"
         href: "https://webmin.rjester.us"
         description: Webmin
-    - Grafana:
-        widget:
-            type: grafana
-            version: 2 # optional, default is 1
-            alerts: grafana # alertmanager # optional, default is grafana
-            url: https://grafana.rjester.us
-            username: admin
-            password: d0pp3lg4ng3r
 - Home Automation:
     - Home Assistant:
         icon: home-assistant.svg

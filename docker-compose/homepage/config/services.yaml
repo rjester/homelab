@@ -28,6 +28,8 @@
         #href: "{{HOMEPAGE_VAR_PORTAINER_URL}}"
         href: "https://dockpeek.rjester.us"
         description: docker information
+        server: my-docker
+        container: dockpeek
 - arr:
     - Radarr:
         icon: radarr.svg

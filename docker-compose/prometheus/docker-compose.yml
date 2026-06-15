@@ -11,8 +11,8 @@ services:
     networks:
       - proxy
     volumes:
-      - ./prometheus/config/prometheus.yml:/etc/prometheus/prometheus.yaml:ro
-      - ./prometheus:/prometheus
+      - /docker/prometheus/config/prometheus.yml:/etc/prometheus/prometheus.yaml:ro
+      - /docker/prometheus:/prometheus
     restart: unless-stopped
     labels:
      - homepage.group=Analytics
@@ -20,6 +20,8 @@ services:
      - homepage.icon=prometheus.png
      - homepage.href=https://prometheus.rjester.us/
      - homepage.description=Prometheus
+     - homepage.widget.type=prometheus
+     - homepage.widget.url=https://prometheus.rjester.us
      - traefik.enable=true
      - traefik.http.routers.prometheus.rule=Host(`prometheus.rjester.us`)
      - traefik.http.routers.prometheus.entrypoints=https

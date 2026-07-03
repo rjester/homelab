@@ -24,6 +24,3 @@ services:
       - DATABASE_URL=file:data/arcane.db?_pragma=journal_mode(WAL)&_pragma=busy_timeout(2500)&_txlock=immediate
       - PROJECTS_DIRECTORY=/app/data/projects
 
-volumes:
-  /docker/arcane/arcane-data:
-    driver: local

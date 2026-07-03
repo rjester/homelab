@@ -1,0 +1,78 @@
+---
+services:
+  authentik:
+    image: ghcr.io/goauthentik/server:2026.2.2
+    restart: unless-stopped
+    command: server
+    environment:
+      - AUTHENTIK_SECRET_KEY=${AUTHENTIK_SECRET_KEY}
+      - AUTHENTIK_ERROR_REPORTING__ENABLED=false
+      - AUTHENTIK_POSTGRESQL__HOST=authentik_postgres
+      - AUTHENTIK_POSTGRESQL__PORT=5432
+      - AUTHENTIK_POSTGRESQL__USER=${DATABASE_USER}
+      - AUTHENTIK_POSTGRESQL__NAME=authentik
+      - AUTHENTIK_POSTGRESQL__PASSWORD=${DATABASE_PASSWORD}
+    networks:
+      - authentik_backend
+    ports:
+      - "8000:9000"
+      - "8443:9443"
+    volumes:
+      - authentik_data:/data
+      - authentik_templates:/templates
+    depends_on:
+      - authentik_postgres
+
+  authentik_worker:
+    image: ghcr.io/goauthentik/server:2026.2.2
+    restart: unless-stopped
+    command: worker
+    environment:
+      - AUTHENTIK_SECRET_KEY=${AUTHENTIK_SECRET_KEY}
+      - AUTHENTIK_ERROR_REPORTING__ENABLED=false
+      - AUTHENTIK_POSTGRESQL__HOST=authentik_postgres
+      - AUTHENTIK_POSTGRESQL__PORT=5432
+      - AUTHENTIK_POSTGRESQL__USER=${DATABASE_USER}
+      - AUTHENTIK_POSTGRESQL__NAME=authentik
+      - AUTHENTIK_POSTGRESQL__PASSWORD=${DATABASE_PASSWORD}
+      - AUTHENTIK_BOOTSTRAP_PASSWORD=${AUTHENTIK_BOOTSTRAP_PASSWORD}
+    user: root
+    networks:
+      - authentik_backend
+    volumes:
+      - /run/docker.sock:/run/docker.sock
+      - authentik_data:/data
+      - authentik_certs:/certs
+      - authentik_templates:/templates
+    depends_on:
+      - authentik_postgres
+  authentik_postgres:
+    image: docker.io/library/postgres:17.9
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DB=authentik
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U authentik"]
+      start_period: 30s
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    networks:
+      - authentik_backend
+    volumes:
+      - authentik_postgres:/var/lib/postgresql/data
+
+networks:
+  authentik_backend:
+    driver: bridge
+volumes:
+  authentik_postgres:
+    driver: local
+  authentik_data:
+    driver: local
+  authentik_certs:
+    driver: local
+  authentik_templates:
+    driver: local

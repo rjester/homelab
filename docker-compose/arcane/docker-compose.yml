@@ -1,0 +1,29 @@
+# Arcane Docker Compose Configuration
+# Generated at 7/3/2026, 11:13:01 AM
+
+services:
+  arcane:
+    image: ghcr.io/getarcaneapp/manager:latest
+    container_name: arcane
+    restart: unless-stopped
+    ports:
+      - 3552:3552
+    volumes:
+      - /docker/arcane/arcane-data:/app/data
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /home/rjester/homelab/docker-compose/arcane:/app/data/projects
+    environment:
+      - APP_URL=http://192.168.0.125:3552
+      - PUID=1000
+      - PGID=1000
+      - LOG_LEVEL=info
+      - LOG_JSON=false
+      - ENCRYPTION_KEY=ba4a4f8e2a03c8acb250b1ba2e263d6b78e224a5eeb67ea5a3006bd714a1c8b1
+      - JWT_SECRET=021ddf2b836e2dc9e41db3b2a3168fb7ff4fa5bf26f50d4f71f65e8e7f833111
+      - OIDC_ENABLED=false
+      - DATABASE_URL=file:data/arcane.db?_pragma=journal_mode(WAL)&_pragma=busy_timeout(2500)&_txlock=immediate
+      - PROJECTS_DIRECTORY=/app/data/projects
+
+volumes:
+  /docker/arcane/arcane-data:
+    driver: local

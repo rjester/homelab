@@ -3,6 +3,7 @@ services:
   infisical:
     image: infisical/infisical:v0.158.0
     restart: unless-stopped
+    container_name: infisical
     environment:
       - NODE_ENV=production
       - SITE_URL=${SITE_URL}
@@ -17,17 +18,19 @@ services:
         condition: service_started
     networks:
       - infisical_backend
-      - traefik
+      - proxy
+    ports:
+      - 8180:8080
     labels:
       - traefik.enable=true
-      - traefik.docker.network=traefik
+      - traefik.docker.network=proxy
       - traefik.http.services.infisical.loadBalancer.server.port=8080
       - traefik.http.routers.infisical_http.service=infisical
       - traefik.http.routers.infisical_http.rule=Host(`infisical.home.arpa`)
-      - traefik.http.routers.infisical_http.entrypoints=web
+      - traefik.http.routers.infisical_http.entrypoints=http
       - traefik.http.routers.infisical_https.service=infisical
       - traefik.http.routers.infisical_https.rule=Host(`infisical.home.arpa`)
-      - traefik.http.routers.infisical_https.entrypoints=websecure
+      - traefik.http.routers.infisical_https.entrypoints=https
       - traefik.http.routers.infisical_https.tls=true
       - traefik.http.routers.infisical_https.tls.certresolver=cloudflare
   infisical_postgres:
@@ -45,7 +48,7 @@ services:
     networks:
       - infisical_backend
     volumes:
-      - infisical_postgres:/var/lib/postgresql/data
+      - /docker/infisical/postgres:/var/lib/postgresql/data
   infisical_redis:
     image: docker.io/library/redis:7-alpine
     restart: unless-stopped
@@ -53,15 +56,10 @@ services:
     networks:
       - infisical_backend
     volumes:
-      - infisical_redis:/data
+      - /docker/infisical/redis:/data
 
 networks:
   infisical_backend:
     driver: bridge
-  traefik:
+  proxy:
     external: true
-volumes:
-  infisical_postgres:
-    driver: local
-  infisical_redis:
-    driver: local

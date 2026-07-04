@@ -1,0 +1,67 @@
+---
+services:
+  infisical:
+    image: infisical/infisical:v0.158.0
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - SITE_URL=${SITE_URL}
+      - ENCRYPTION_KEY=${ENCRYPTION_KEY}
+      - AUTH_SECRET=${AUTH_SECRET}
+      - DB_CONNECTION_URI=${DB_CONNECTION_URI}
+      - REDIS_URL=${REDIS_URL}
+    depends_on:
+      infisical_postgres:
+        condition: service_healthy
+      infisical_redis:
+        condition: service_started
+    networks:
+      - infisical_backend
+      - traefik
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=traefik
+      - traefik.http.services.infisical.loadBalancer.server.port=8080
+      - traefik.http.routers.infisical_http.service=infisical
+      - traefik.http.routers.infisical_http.rule=Host(`infisical.home.arpa`)
+      - traefik.http.routers.infisical_http.entrypoints=web
+      - traefik.http.routers.infisical_https.service=infisical
+      - traefik.http.routers.infisical_https.rule=Host(`infisical.home.arpa`)
+      - traefik.http.routers.infisical_https.entrypoints=websecure
+      - traefik.http.routers.infisical_https.tls=true
+      - traefik.http.routers.infisical_https.tls.certresolver=cloudflare
+  infisical_postgres:
+    image: docker.io/library/postgres:14-alpine
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready --username=$${POSTGRES_USER} --dbname=$${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    networks:
+      - infisical_backend
+    volumes:
+      - infisical_postgres:/var/lib/postgresql/data
+  infisical_redis:
+    image: docker.io/library/redis:7-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes", "--requirepass", "${REDIS_PASSWORD}"]
+    networks:
+      - infisical_backend
+    volumes:
+      - infisical_redis:/data
+
+networks:
+  infisical_backend:
+    driver: bridge
+  traefik:
+    external: true
+volumes:
+  infisical_postgres:
+    driver: local
+  infisical_redis:
+    driver: local

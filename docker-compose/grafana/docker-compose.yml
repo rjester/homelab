@@ -12,7 +12,7 @@ services:
       - /docker/grafana:/var/lib/grafana
     environment:
       - GF_PLUGINS_PREINSTALL=grafana-clock-panel
-      - TZ=${TZ}
+      - TZ=America/New_York
       - GF_AUTH_DISABLE_LOGIN_FORM=false
       - GF_AUTH_ANONYMOUS_ENABLED=false
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin

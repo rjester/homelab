@@ -29,13 +29,13 @@ services:
       # Optionally enable auto-login (bypasses Grafana login screen)
       - GF_AUTH_OAUTH_AUTO_LOGIN=true
       # Optionally map user groups to Grafana roles
-      - GF_AUTH_GENERIC_OAUTH_ROLE_ATTRIBUTE_PATH: "contains(groups[*], 'Grafana Admins') && 'Admin' || contains(groups[*], 'Grafana Editors') && 'Editor' || 'Viewer'"
+      - "GF_AUTH_GENERIC_OAUTH_ROLE_ATTRIBUTE_PATH=contains(groups[*], 'Grafana Admins') && 'Admin' || contains(groups[*], 'Grafana Editors') && 'Editor' || 'Viewer'"
       # Required if Grafana is running behind a reverse proxy
       - GF_SERVER_ROOT_URL=https://grafana.rjester.us
     restart: unless-stopped
     labels:
      - homepage.group=Analytics
-     - homepage.name=Grafana
+     - homepage.name=Grafana  
      - homepage.icon=grafana.png
      - homepage.href=https://grafana.rjester.us/
      - homepage.description=Grafana
@@ -48,8 +48,8 @@ services:
      - traefik.http.routers.grafana.rule=Host(`grafana.rjester.us`)
      - traefik.http.routers.grafana.entrypoints=https
      - traefik.http.routers.grafana.tls=true
-     - "traefik.http.routers.grafana.tls.domains[0].main=rjester.us"
-     - "traefik.http.routers.grafana.tls.domains[0].sans[0]=*.rjester.us"
+     - traefik.http.routers.grafana.tls.domains[0].main=rjester.us
+     - traefik.http.routers.grafana.tls.domains[0].sans[0]=*.rjester.us
      - traefik.http.routers.grafana.tls.certresolver=cloudflare
      - traefik.http.services.grafana.loadbalancer.server.port=3000
      - traefik.docker.network=proxy

@@ -26,10 +26,10 @@ services:
       - traefik.docker.network=proxy
       - traefik.http.services.infisical.loadBalancer.server.port=8080
       - traefik.http.routers.infisical_http.service=infisical
-      - traefik.http.routers.infisical_http.rule=Host(`infisical.home.arpa`)
+      - traefik.http.routers.infisical_http.rule=Host(`infisical.rjester.us`)
       - traefik.http.routers.infisical_http.entrypoints=http
       - traefik.http.routers.infisical_https.service=infisical
-      - traefik.http.routers.infisical_https.rule=Host(`infisical.home.arpa`)
+      - traefik.http.routers.infisical_https.rule=Host(`infisical.rjester.us`)
       - traefik.http.routers.infisical_https.entrypoints=https
       - traefik.http.routers.infisical_https.tls=true
       - traefik.http.routers.infisical_https.tls.certresolver=cloudflare

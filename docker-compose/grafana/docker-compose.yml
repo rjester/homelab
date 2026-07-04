@@ -19,8 +19,8 @@ services:
       - GF_SECURITY_ALLOW_EMBEDDING=true
       - GF_AUTH_GENERIC_OAUTH_ENABLED=true
       - GF_AUTH_GENERIC_OAUTH_NAME=authentik
-      #- GF_AUTH_GENERIC_OAUTH_CLIENT_ID=zkUny5iwF2qlJVW7dTQpwy6del5xssX5h6VMckCX
-      #- GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET=FtvjtQYwH04GWMJJWGHJ2KrfvrtjzG9Bz1rax2CMnydgdn8HClQj91hYyfNwTUTeTv1gjndooJyarDOtUYNwMsN6jwqC3Tx4EmukYld0j0dGtvsA0Ezqh4UyacPV8mbS
+      - GF_AUTH_GENERIC_OAUTH_CLIENT_ID=zkUny5iwF2qlJVW7dTQpwy6del5xssX5h6VMckCX
+      - GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET=FtvjtQYwH04GWMJJWGHJ2KrfvrtjzG9Bz1rax2CMnydgdn8HClQj91hYyfNwTUTeTv1gjndooJyarDOtUYNwMsN6jwqC3Tx4EmukYld0j0dGtvsA0Ezqh4UyacPV8mbS
       #- GF_AUTH_GENERIC_OAUTH_SCOPES=openid profile email
       #- GF_AUTH_GENERIC_OAUTH_AUTH_URL=https://authentik.rjester.us/application/o/authorize/
       #- GF_AUTH_GENERIC_OAUTH_TOKEN_URL=https://authentik.rjester.us/application/o/token/

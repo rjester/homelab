@@ -12,15 +12,30 @@ services:
       - /docker/grafana:/var/lib/grafana
     environment:
       - GF_PLUGINS_PREINSTALL=grafana-clock-panel
-      - TZ=${TZ}
-      - GF_AUTH_DISABLE_LOGIN_FORM=true
-      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - TZ=America/New_York
+      - GF_AUTH_DISABLE_LOGIN_FORM=false
+      - GF_AUTH_ANONYMOUS_ENABLED=false
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
       - GF_SECURITY_ALLOW_EMBEDDING=true
+      - GF_AUTH_GENERIC_OAUTH_ENABLED=true
+      - GF_AUTH_GENERIC_OAUTH_NAME=authentik
+      - GF_AUTH_GENERIC_OAUTH_CLIENT_ID=zkUny5iwF2qlJVW7dTQpwy6del5xssX5h6VMckCX
+      - GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET=FtvjtQYwH04GWMJJWGHJ2KrfvrtjzG9Bz1rax2CMnydgdn8HClQj91hYyfNwTUTeTv1gjndooJyarDOtUYNwMsN6jwqC3Tx4EmukYld0j0dGtvsA0Ezqh4UyacPV8mbS
+      - GF_AUTH_GENERIC_OAUTH_SCOPES=openid profile email
+      - GF_AUTH_GENERIC_OAUTH_AUTH_URL=https://authentik.rjester.us/application/o/authorize/
+      - GF_AUTH_GENERIC_OAUTH_TOKEN_URL=https://authentik.rjester.us/application/o/token/
+      - GF_AUTH_GENERIC_OAUTH_API_URL=https://authentik.rjester.us/application/o/userinfo/
+      - GF_AUTH_SIGNOUT_REDIRECT_URL=https://authentik.rjester.us/application/o/grafana/end-session/
+      # Optionally enable auto-login (bypasses Grafana login screen)
+      - GF_AUTH_OAUTH_AUTO_LOGIN=true
+      # Optionally map user groups to Grafana roles
+      #- "GF_AUTH_GENERIC_OAUTH_ROLE_ATTRIBUTE_PATH=contains(groups[*], 'Grafana Admins') && 'Admin' || contains(groups[*], 'Grafana Editors') && 'Editor' || 'Viewer'"
+      # Required if Grafana is running behind a reverse proxy
+      - GF_SERVER_ROOT_URL=https://grafana.rjester.us
     restart: unless-stopped
     labels:
      - homepage.group=Analytics
-     - homepage.name=Grafana
+     - homepage.name=Grafana  
      - homepage.icon=grafana.png
      - homepage.href=https://grafana.rjester.us/
      - homepage.description=Grafana
